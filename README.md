@@ -38,8 +38,10 @@ mongoDb数据库的多人博客系统/社交网络
 + 更新依赖模块
 <pre>
     cd blog&&npm install
-</pre>    
+</pre>  
+  
 ####或者直接使用这个例子
+
 + 进入mongodb/bin，开启mongoDb数据库
 <pre>
     cd mongodb/bin
