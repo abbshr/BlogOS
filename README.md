@@ -45,7 +45,7 @@ mongoDb数据库的多人博客系统/社交网络
 + 进入mongodb/bin，开启mongoDb数据库
 <pre>
     cd mongodb/bin
-    mongod -dbpath "/home/username/myblog/blogos" 
+    mongod -dbpath "/home/username/myblog/datebase" 
 </pre>
 + 启动应用
 <pre>
