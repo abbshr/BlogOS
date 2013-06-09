@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	
+	<body>
+		<%- include title %>
+		<%- include navbar %>
+		<form method="post">
+			<label>用户名：</label><input type="text" name="name" /><br>
+			<label>密码：</label><input type="password" name="password" /><br>
+			<label>确认密码：</label><input type="password" name="password-repeat" /><br>
+			<label>邮箱：</label><input type="email" name="email"/><br />
+            <input type="submit" value="注册" />
+		</form>
+		<%- include foot %>
+	</body>
+</html>

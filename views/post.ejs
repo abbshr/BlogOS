@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include navbar %>
+		<form method="post">
+			<label>文章标题：</label><input type="text" name="title" /><br>
+			<label>正文：</label><br>
+			<textarea name="post" rows="20" cols="100"></textarea><br>
+			<input type="submit" value="发表" />
+		</form>
+		<%- include foot %>
+	</body>
+</html>

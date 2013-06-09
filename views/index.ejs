@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include navbar %>
+		<% posts.forEach(function (post, index) { %>
+			<p><h2><a href="#"><%= post.title %></a></h2></p>
+			<p class="info">
+				<label>作者：</label><a href="/<%= post.name %>"><%= post.name %></a> | 
+				<label>日期：</label><%= post.time.minute %>
+			</p>
+			<p><%- post.post %></p>
+			<hr>
+		<% }) %>
+		<%- include foot %>
+	</body>
+</html>
