@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Nodejs-blog by abbshr</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Nodejs-blog</h1>
+        <h2>一个基于express的Node.js社交应用</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/abbshr/NodeJs-Blog/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/abbshr/NodeJs-Blog/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/abbshr/NodeJs-Blog" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="blog-os" class="anchor" href="#blog-os"><span class="octicon octicon-link"></span></a>Blog-OS</h1>
+
+<hr><h4>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a>这是一个基于</h4>
+
+<p>Node.js平台 + 
+express框架 + 
+mongoDb数据库的多人博客系统/社交网络</p>
+
+<hr><h4>
+<a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>功能描述：</h4>
+
+<ul>
+<li>多用户</li>
+<li>实时（RealTime）</li>
+<li>个人控制
+
+<ul>
+<li>编辑个人信息</li>
+<li>添加头像</li>
+<li>pv统计</li>
+<li>管理自己发布的文章</li>
+</ul>
+</li>
+<li>标签</li>
+<li>分页</li>
+<li>markdown发布文章</li>
+<li>归档</li>
+<li>markdown留言</li>
+<li>markdown评论</li>
+<li>可视化文本编辑器</li>
+<li>文章检索</li>
+<li>管理员后台</li>
+</ul><hr><p>更新日期： 2013.6.9</p>
+
+<hr><h4>
+<a name="quick-startblogos" class="anchor" href="#quick-startblogos"><span class="octicon octicon-link"></span></a>你可以选择Quick Start参照例子自己创建blogos：</h4>
+
+<ul>
+<li>生成一个目录
+<pre>
+mkdir myblog 
+</pre>
+</li>
+<li>安装express模块（在此之前你需要安装Node.js）
+<pre>
+npm install -g express
+</pre>
+<br>
+</li>
+<li>建立express应用框架
+<pre>
+express -e ejs blogos
+</pre>
+<br>
+</li>
+<li>更新依赖模块
+<pre>
+cd blog&amp;&amp;npm install
+</pre>
+<br>
+</li>
+</ul><h4>
+<a name="-2" class="anchor" href="#-2"><span class="octicon octicon-link"></span></a>或者直接使用这个例子</h4>
+
+<ul>
+<li>进入mongodb/bin，开启mongoDb数据库
+<pre>
+cd mongodb/bin
+mongod -dbpath "/home/username/myblog/datebase" 
+</pre>
+</li>
+<li>启动应用
+<pre>
+cd myblog/blogos
+node app.js
+</pre>
+</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
