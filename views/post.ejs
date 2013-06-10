@@ -6,9 +6,10 @@
 	<body>
 		<%- include title %>
 		<%- include navbar %>
+		<%- include flashinfo %>
 		<form method="post">
 			<label>文章标题：</label><input type="text" name="title" /><br>
-			<label>正文：</label><br>
+			<label>正文：(支持markdown语法)</label><br>
 			<textarea name="post" rows="20" cols="100"></textarea><br>
 			<input type="submit" value="发表" />
 		</form>

@@ -2,11 +2,12 @@
 
 var crypto = require('crypto'),   //生成散列值来加密密码
 	User = require('../models/user.js'),
-	Post = require('../models/post.js');
+	Post = require('../models/post.js'),
+	Comment = require('../models/comment.js');
 
 module.exports = function(app) {
 	app.get('/', function (req, res) {
-		Post.get(null, function (err, posts) {
+		Post.getAll(null, function (err, posts) {
 			if (err) {
 				posts = [];
 			}
@@ -122,6 +123,64 @@ module.exports = function(app) {
 		req.session.user = null,
 		req.flash('success', '你已经登出系统~');
 		res.redirect('/');
+	});
+	app.get('/u/:name', function (req, res) {
+		//检查用户是否存在
+		User.get(req.params.name, function (err, user) {
+			if (!user) {
+				req.flash('error', '用户不存在 :(');
+				return res.redirect('/');
+			}
+			
+			//查询并返回该用户的所有文章
+			Post.getAll(user.name, function (err, posts) {
+				if (err) {
+					req.flash('error', err);
+					return res.redirect('/');
+				}
+				res.render('user', {
+					title: user.name,
+					posts: posts,
+					user: req.session.user,
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString()
+				});
+			});
+		});
+	});
+	app.get('/u/:name/:day/:title', function (req, res) {
+		Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			}
+			res.render('article', {
+				title: req.params.title,
+				post: post,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+		});
+	});
+	app.post('/u/:name/:day/:title', checkLogin);
+	app.post('/u/:name/:day/:title', function (req, res) {
+		var date = new Date(),
+			time = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
+			comment = {
+				"name": req.session.user.name,
+				"time": time,
+				"content": req.body.content
+			};
+		var newComment = new Comment(req.params.name, req.params.day, req.params.title, comment);
+		newComment.save(function (err) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('back');
+			}
+			req.flash('success', '留言成功 :）');
+			res.redirect('back');
+		});
 	});
 };
 

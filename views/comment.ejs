@@ -1,0 +1,26 @@
+<p>总共
+<% if (post.comments) { %>
+	<%= post.comments.length %>
+<% } else { %>
+	<label>0</label>
+<% } %>
+	条留言</p><br>
+<% post.comments.forEach(function (comment, index) { %>
+	<p>
+		<a href="/u/<%= comment.name %>"><%= comment.name %></a>
+		<span class="info">  回复于 <%= comment.time %></span>
+	</p>
+	<p><%- comment.content %></p>
+	<hr>
+<% }) %>
+
+<form method="post">
+<% if (locals.user) { %>
+	<label>回复内容：</label><br>
+	<textarea name="content" row="5" cols="80"></textarea><br>
+	<input type="submit" value="留言" />
+<% } else { %>
+	<label>请先<a href="/login">登录</a>再说 :)</label>
+<% } %>
+</form>
+	
