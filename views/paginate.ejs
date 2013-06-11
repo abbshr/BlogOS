@@ -1,0 +1,15 @@
+<div>
+<% if (pagenum - 1) { %>
+	<span class="lastpage"><a href="?page=<%= pagenum - 1 %>">前一页</a></span>
+<% } %>
+<% for (var num = 1; num <= tpages; num++) { %>
+	<% if (num === pagenum) { %>
+		<p><%= num %></p>
+	<% } else { %>
+		<a href="?page=<%= num %>"><%= num %></a>
+	<% } %>
+<% } %>
+<% if (pagenum !== tpages) { %>
+	<span class="nextpage"><a href="?page=<%= pagenum + 1 %>">下一页</a></span>
+<% } %>
+</div>

@@ -16,11 +16,13 @@
 								<%= post.comments.length %>
 							 <% } else { %>
 								<label>0</label>
-							 <% } %>)</label>
+							 <% } %>)
+				</label>
 			</p>
 			<p><%- post.post %></p>
 			<hr>
 		<% }) %>
+		<%- include paginate %>
 		<%- include foot %>
 	</body>
 </html>

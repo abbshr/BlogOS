@@ -7,7 +7,10 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 
 module.exports = function(app) {
 	app.get('/', function (req, res) {
-		Post.getAll(null, function (err, posts) {
+		//解析页数，并把请求的页数转换为number类型
+		var pagenum = req.query.page ? parseInt(req.query.page) : 1;
+		//查询并返回第pagenum页的15篇文章
+		Post.getFifteen(null, pagenum, function (err, posts, tpages) {
 			if (err) {
 				posts = [];
 			}
@@ -15,6 +18,8 @@ module.exports = function(app) {
 				title: '主页',
 				user: req.session.user,
 				posts: posts,
+				pagenum: pagenum,
+				tpages: tpages,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString()
 			});
@@ -125,6 +130,7 @@ module.exports = function(app) {
 		res.redirect('/');
 	});
 	app.get('/u/:name', function (req, res) {
+		var pagenum = req.query.page ? parseInt(req.query.page) : 1;
 		//检查用户是否存在
 		User.get(req.params.name, function (err, user) {
 			if (!user) {
@@ -132,8 +138,8 @@ module.exports = function(app) {
 				return res.redirect('/');
 			}
 			
-			//查询并返回该用户的所有文章
-			Post.getAll(user.name, function (err, posts) {
+			//查询并返回该用户第pagenum页的15篇文章
+			Post.getFifteen(user.name, pagenum, function (err, posts, tpages) {
 				if (err) {
 					req.flash('error', err);
 					return res.redirect('/');
@@ -141,6 +147,8 @@ module.exports = function(app) {
 				res.render('user', {
 					title: user.name,
 					posts: posts,
+					pagenum: pagenum,
+					tpages: tpages,
 					user: req.session.user,
 					success: req.flash('success').toString(),
 					error: req.flash('error').toString()
