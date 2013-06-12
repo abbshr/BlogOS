@@ -60,7 +60,7 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 };
 
 
-Post.getAll = function (name, callback) {    //读取一个用户的所有文章及相关信息
+Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文章及相关信息
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -77,20 +77,28 @@ Post.getAll = function (name, callback) {    //读取一个用户的所有文章
 			if (name) {
 				query.name = name;
 			}
-			
-			//根据query对象查询文章，按降序存在数组里
-			collection.find(query).sort({
-				time: -1
-			}).toArray(function (err, docs) {
-				mongodb.close();
+			collection.find(query).toArray(function (err, posarr) {
 				if (err) {
-					callback(err, null);  //若失败返回null
+					mongodb.close();
+					return callback(err);
 				}
-				//解析markdown为html
-				docs.forEach(function (doc) {
-					doc.post = markdown.toHTML(doc.post);
+				var tposnum = posarr.length;           //获取po总数量
+				var tpages = Math.ceil(tposnum/3);       //获取总页数
+			
+				//根据query对象查询文章，跳过前（pagenum - 1）*15个结果，返回后15个并按降序存在数组里
+				collection.find(query, {skip: (pagenum - 1)*3, limit: 3}).sort({
+					time: -1
+				}).toArray(function (err, docs) {
+					mongodb.close();
+					if (err) {
+						callback(err, null);  //若失败返回null
+					}
+					//解析markdown为html
+					docs.forEach(function (doc) {
+						doc.post = markdown.toHTML(doc.post);
+					});
+					callback(null, docs, tpages);     //成功则以数组形式返回查询结果
 				});
-				callback(null, docs);     //成功则以数组形式返回查询结果
 			});
 		});
 	});
