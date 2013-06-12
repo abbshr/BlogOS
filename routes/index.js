@@ -215,6 +215,9 @@ module.exports = function(app) {
 			});
 		});
 	});
+	app.all('*', function (req, res) {    //添加404响应页面
+		res.render('404');
+	});
 };
 
 function checkLogin(req, res, next) {   //登录之后才能继续操作
