@@ -147,6 +147,7 @@ module.exports = function(app) {
 				}
 				res.render('user', {
 					title: user.name,
+					currentuser: req.params.name,
 					posts: posts,
 					pagenum: pagenum,
 					tpages: tpages,
@@ -165,6 +166,7 @@ module.exports = function(app) {
 			}
 			res.render('article', {
 				title: req.params.title,
+				currentuser: req.params.name,
 				post: post,
 				user: req.session.user,
 				success: req.flash('success').toString(),
@@ -189,6 +191,28 @@ module.exports = function(app) {
 			}
 			req.flash('success', '留言成功 :）');
 			res.redirect('back');
+		});
+	});
+	app.get('/u/:name/archive', function (req, res) {
+		User.get(req.params.name, function (err, user) {
+			if (!user) {
+				req.flash('error', '用户不存在 :(');
+				return res.redirect('/');
+			}
+			Post.getArchive(user.name, function (err, posts) {
+				if (err) {
+					req.flash('error', err);
+					res.redirect('/');
+				}
+				res.render('archive', {
+					title: user.name,
+					currentuser: user.name,
+					posts: posts,
+					user: req.session.user,
+					success: req.flash('success').toString(),
+					error: req.flash('error').toString()
+				});
+			});
 		});
 	});
 };

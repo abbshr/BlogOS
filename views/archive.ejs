@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include usernavbar %>
+		<%- include flashinfo %>
+		<ul class="archive">
+		<% var wholeyear = 0 %>
+		<% posts.forEach(function (post, index) { %>
+			<% if (wholeyear !== post.time.year) { %>
+				<li><h3><%= post.time.year %></h3></li>
+			<% } %>
+			<% wholeyear = post.time.year %>
+			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+		<% }) %>
+		</ul>
+		<%- include foot %>
+	</body>
+</html>

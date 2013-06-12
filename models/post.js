@@ -83,10 +83,10 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 					return callback(err);
 				}
 				var tposnum = posarr.length;           //获取po总数量
-				var tpages = Math.ceil(tposnum/3);       //获取总页数
+				var tpages = Math.ceil(tposnum/15);       //获取总页数
 			
 				//根据query对象查询文章，跳过前（pagenum - 1）*15个结果，返回后15个并按降序存在数组里
-				collection.find(query, {skip: (pagenum - 1)*3, limit: 3}).sort({
+				collection.find(query, {skip: (pagenum - 1)*15, limit: 15}).sort({
 					time: -1
 				}).toArray(function (err, docs) {
 					mongodb.close();
@@ -139,6 +139,27 @@ Post.getOne = function (name, day, title, callback) {   //获取一篇文章
 					}
 				}
 				callback(null, doc);   //返回特定的查询文章
+			});
+		});
+	});
+};
+
+Post.getArchive = function (name, callback) {
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			collection.find({"name": name}).sort({time: -1}).toArray(function (err, docs) {
+				mongodb.close();
+				if (err) {	
+					return callback(err);
+				}
+				callback(null, docs);
 			});
 		});
 	});

@@ -5,13 +5,13 @@
 	</head>
 	<body>
 		<%- include title %>
-		<%- include navbar %>
+		<%- include usernavbar %>
 		<%- include flashinfo %>
 		<% posts.forEach(function (post, index) { %>
 			<p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
 			<p class="info">
 				<label>作者：</label><a href="/u/<%= post.name %>"><%= post.name %></a> | 
-				<label>日期：</label><%= post.time.minute %>
+				<label>日期：</label><%= post.time.minute %> | 
 				<label>评论数(<% if (post.comments) { %>
 								<%= post.comments.length %>
 							 <% } else { %>
