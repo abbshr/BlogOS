@@ -31,12 +31,17 @@
         <h1>
 <a name="blog-os" class="anchor" href="#blog-os"><span class="octicon octicon-link"></span></a>Blog-OS</h1>
 
-<hr><h4>
+<h4>
 <a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a>这是一个基于</h4>
 
 <p>Node.js平台 + 
 express框架 + 
 mongoDb数据库的多人博客系统/社交网络</p>
+
+<hr><h4>
+<a name="ui" class="anchor" href="#ui"><span class="octicon octicon-link"></span></a>关于UI优化</h4>
+
+<p>未来会使用前端框架Bootstrap重构页面。由于该项目当前仅仅是个例子，所以并没有对UI做任何修饰。</p>
 
 <hr><h4>
 <a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>功能描述：</h4>
@@ -48,7 +53,7 @@ mongoDb数据库的多人博客系统/社交网络</p>
 
 <ul>
 <li>编辑个人信息</li>
-<li>添加头像</li>
+<li>添加头像:头像引自gravatar，可到gravatar上选定头像然后将邮箱填写正确 </li>
 <li>pv统计</li>
 <li>管理自己发布的文章</li>
 </ul>
@@ -62,9 +67,12 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>可视化文本编辑器</li>
 <li>文章检索</li>
 <li>管理员后台</li>
-</ul><hr><p>更新日期： 2013.6.9</p>
-
-<hr><h4>
+<li>注册：在注册时最好填写关联gravatar的邮箱以确保头像的正确引用！
+<hr>
+更新日期： 2013.6.9
+<hr>
+</li>
+</ul><h4>
 <a name="quick-startblogos" class="anchor" href="#quick-startblogos"><span class="octicon octicon-link"></span></a>你可以选择Quick Start参照例子自己创建blogos：</h4>
 
 <ul>
@@ -77,22 +85,19 @@ mkdir myblog
 <pre>
 npm install -g express
 </pre>
-<br>
 </li>
 <li>建立express应用框架
 <pre>
 express -e ejs blogos
 </pre>
-<br>
 </li>
 <li>更新依赖模块
 <pre>
 cd blog&amp;&amp;npm install
 </pre>
-<br>
 </li>
 </ul><h4>
-<a name="-2" class="anchor" href="#-2"><span class="octicon octicon-link"></span></a>或者直接使用这个例子</h4>
+<a name="-2" class="anchor" href="#-2"><span class="octicon octicon-link"></span></a>或者直接使用我已經做好的这个例子</h4>
 
 <ul>
 <li>进入mongodb/bin，开启mongoDb数据库
