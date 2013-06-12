@@ -36,15 +36,15 @@ mongoDb数据库的多人博客系统/社交网络
 + 安装express模块（在此之前你需要安装Node.js）
 <pre>
     npm install -g express
-</pre>
+</pre>    
 + 建立express应用框架
 <pre>
     express -e ejs blogos
-</pre>
+</pre>    
 + 更新依赖模块
 <pre>
     cd blog&&npm install
-</pre>
+</pre>  
   
 ####或者直接使用这个例子
 
