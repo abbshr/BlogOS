@@ -39,12 +39,24 @@ express框架 +
 mongoDb数据库的多人博客系统/社交网络</p>
 
 <hr><h4>
+<a name="bugs-fixed--add-modules" class="anchor" href="#bugs-fixed--add-modules"><span class="octicon octicon-link"></span></a>bugs fixed &amp;&amp; add modules</h4>
+
+<p>2013.6.14 修正了标签显示不正确问题</p>
+
+<h4>
+<a name="bugs" class="anchor" href="#bugs"><span class="octicon octicon-link"></span></a>bugs</h4>
+
+<p>2013.6.14 单篇文章路径与指定用户的指定标签路径冲突，默认会调用前一项handle而忽略后面的handle，从而导致页面访问错误。 暂时解决方案：取消用户指定标签功能。</p>
+
+<p>2013.6.14 发布文章时，标题和标签的末尾出现空格会导致单篇文章页面访问出错。 尚未解决，方案： 在路由中对传输的数据做预处理保证满足规格（自动将末尾的空格去掉）</p>
+
+<hr><h4>
 <a name="ui" class="anchor" href="#ui"><span class="octicon octicon-link"></span></a>关于UI优化</h4>
 
 <p>未来会使用前端框架Bootstrap重构页面。由于该项目当前仅仅是个例子，所以并没有对UI做任何修饰。</p>
 
 <hr><h4>
-<a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>功能描述：</h4>
+<a name="-1" class="anchor" href="#-1"><span class="octicon octicon-link"></span></a>最终功能描述：</h4>
 
 <ul>
 <li>多用户</li>
@@ -69,7 +81,18 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>管理员后台</li>
 <li>注册：在注册时最好填写关联gravatar的邮箱以确保头像的正确引用！
 <hr>
-更新日期： 2013.6.9
+####当前实现：</li>
+<li>多用户</li>
+<li>标签</li>
+<li>分页</li>
+<li>markdown</li>
+<li>归档</li>
+<li>发布文章</li>
+<li>留言（评论）
+<hr>
+####更新日期： </li>
+<li>2013.6.9</li>
+<li>2013.6.14
 <hr>
 </li>
 </ul><h4>
