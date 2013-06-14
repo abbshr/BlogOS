@@ -114,7 +114,9 @@ module.exports = function(app) {
 	app.post('/post', checkLogin);
 	app.post('/post', function (req, res) {
 		var currentuser = req.session.user,
-			post = new Post(currentuser.name, req.body.title, req.body.post);
+		    regexp = /,|，/,
+		    tags = String.prototype.split.call(req.body.tags, regexp, 5),  //最多五个标签
+		    post = new Post(currentuser.name, req.body.title, tags, req.body.post);
 		post.save(function (err) {
 			if (err) {
 				req.flash('error', err);
@@ -215,6 +217,68 @@ module.exports = function(app) {
 			});
 		});
 	});
+	app.get('/tags', function (req, res) {
+		Post.getTags(null, function (err, tags) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			}
+			res.render('alltags', {
+				title: '探索你感兴趣的话题:)',
+				tags: tags,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+		});
+	});
+	app.get('/tags/:tagname', function (req, res) {
+		Post.getTagPage(null, req.params.tagname, function (err, posts) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			}
+			res.render('tagpage', {
+				title: '相关话题：' + req.params.tagname,
+				posts: posts,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+		});
+	});
+	app.get('/u/:name/tags', function (req, res) {
+		Post.getTags(req.params.name, function (err, tags) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/u/' + req.params.name);
+			}
+			res.render('alltags', {
+				title: req.params.name + '的标签集',
+				tags: tags,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+		});
+	});
+	/*app.get('/u/:name/tags/:tagname', function (req, res) {
+		Post.getTagPage(req.params.name, req.params.tagname, function (err, posts) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			}
+			res.render('tagpage', {
+				title: req.params.name + '参与的话题：' + req.params.tagname,
+				posts: posts,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString() 
+			});
+		});
+	});*/
+	//以上这段出现较严重问题：地址与/u/:name/:day/:title产生冲突，而这个地址在前面有所响应，所以这段相当于永远也执行不到
+	//亟待解决：地址重叠问题，标题末尾空格问题，标签末尾空格倒置标签无法带入指定地址问题【添加自动干掉末尾多余空格功能】
 	app.all('*', function (req, res) {    //添加404响应页面
 		res.render('404');
 	});

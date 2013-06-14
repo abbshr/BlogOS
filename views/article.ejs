@@ -10,7 +10,14 @@
 		<p><h2><%= post.title %></h2></p>
 		<p class="info">
 		<label>作者：</label><a href="/u/<%= post.name %>"><%= post.name %></a> | 
-		<label>日期：</label><%= post.time.minute %>
+		<label>日期：</label><%= post.time.minute %> |
+		<label>标签：
+		<% if (post.tags) { %>
+			<% post.tags.forEach(function (tag, index) { %>
+				<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+			<% }) %>
+		<% } %>
+		</label>
 		</p>
 		<p><%- post.post %></p><br>
 		<hr>

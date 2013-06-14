@@ -16,7 +16,8 @@ User.prototype.save = function (callback) {    //存储用户信息
 	var user = {
 		name: this.name,
 		password: this.password,
-		email: this.email
+		email: this.email,
+		message: []
 	};
 	
 	//打开数据库

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include navbar %>
+		<%- include flashinfo %>
+		<% if (tags) { %>
+			<% tags.forEach(function (tag, index) { %>		
+				<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+			<% }) %>
+		<% } %>
+		<%- include foot %>
+	</body>
+</html>

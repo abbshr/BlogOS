@@ -3,9 +3,10 @@
 var mongodb = require('./db'),
 	markdown = require('markdown').markdown;
 
-function Post(name, title, post) {
+function Post(name, title, tags, post) {
 	this.name = name;
 	this.title = title;
+	this.tags = tags;
 	this.post = post;
 }
 
@@ -28,6 +29,7 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 		name: this.name,
 		time: time,
 		title: this.title,
+		tags: this.tags,
 		post: this.post,
 		comments: []
 	};
@@ -158,6 +160,56 @@ Post.getArchive = function (name, callback) {
 				mongodb.close();
 				if (err) {	
 					return callback(err);
+				}
+				callback(null, docs);
+			});
+		});
+	});
+};
+
+Post.getTags = function (name, callback) {     //按用户名获取标用户签集
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			var query = {};
+			if (name) {
+				query.name = name;
+			}
+			collection.distinct("tags", query, function (err, tags) {
+				mongodb.close();
+				if (err) {
+					return callback(err, null);
+				}
+				callback(null, tags);
+			});
+		});
+	});
+};
+
+Post.getTagPage = function (name, tagname, callback) {   //通过用户和标签名获取标签页
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			var query = {tags: tagname};
+			if (name) {
+				query.name = name;
+			}
+			collection.find(query).sort({time: -1}).toArray(function (err, docs) {
+				mongodb.close();
+				if (err) {
+					return callback(err, null);
 				}
 				callback(null, docs);
 			});
