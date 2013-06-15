@@ -132,6 +132,21 @@ module.exports = function(app) {
 		req.flash('success', '你已经登出系统~');
 		res.redirect('/');
 	});
+	app.get('/search', function (req, res) {    //待修复bug：尚未对关键字进行过滤！
+		Post.search(req.query.keyword, function (err, posts) {
+			if (err) {
+				req.flash('error', err);
+				return res.redirect('/');
+			}
+			res.render('search', {
+				title: "搜索结果",
+				posts: posts,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+		});
+	});
 	app.get('/u/:name', function (req, res) {
 		var pagenum = req.query.page ? parseInt(req.query.page) : 1;
 		//检查用户是否存在
@@ -161,7 +176,11 @@ module.exports = function(app) {
 		});
 	});
 	app.get('/u/:name/:day/:title', function (req, res) {
-		Post.getOne(req.session.user.name,req.params.name, req.params.day, req.params.title, function (err, post) {
+		var lookname = null;
+		if (req.session.user) {
+			lookname = req.session.user.name;
+		}
+		Post.getOne(lookname, req.params.name, req.params.day, req.params.title, function (err, post) {
 			if (err) {
 				req.flash('error', err);
 				return res.redirect('/');

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include navbar %>
+		<%- include flashinfo %>
+		
+		<% if (posts.length) { %>
+			<% var lastname = null %>
+			<ul class="archive">
+				<% posts.forEach(function (post, index) { %>
+					<% if (lastname !== post.name) { %>
+						<li><h3><%= post.name %></h3></li>
+						<% lastname = post.name %>
+					<% } %>
+					<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+				<% }) %>
+			</ul>
+		<% } else { %>
+			<p>没找到相关文章 :(</p>
+		<% } %>
+		<%- include foot %>
+	</body>
+</html>
