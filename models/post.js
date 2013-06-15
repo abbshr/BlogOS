@@ -31,7 +31,8 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 		title: this.title,
 		tags: this.tags,
 		post: this.post,
-		comments: []
+		comments: [],
+		pv: 0
 	};
 	
 	//打开数据库
@@ -106,7 +107,7 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 	});
 };
 
-Post.getOne = function (name, day, title, callback) {   //获取一篇文章
+Post.getOne = function (lookname, name, day, title, callback) {   //获取一篇文章
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -126,6 +127,13 @@ Post.getOne = function (name, day, title, callback) {   //获取一篇文章
 				"time.day": day,
 				"title": title
 			}, function (err, doc) {
+				if (lookname !== name) {
+					collection.update({   //增加pv
+						"name": name,
+						"time.day": day,
+						"title": title 
+					}, {$inc: {"pv": 1}});
+				}
 				mongodb.close();
 				if (err) {
 					return callback(err, null);
