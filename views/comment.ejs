@@ -6,12 +6,15 @@
 <% } %>
 	条留言</p><br>
 <% post.comments.forEach(function (comment, index) { %>
+<div style="padding-left:4em">
 	<p>
+		<img src="<%= comment.headimg %>" class="l_head" />
 		<a href="/u/<%= comment.name %>"><%= comment.name %></a>
 		<span class="info">  回复于 <%= comment.time %></span>
 	</p>
 	<p><%- comment.content %></p>
 	<hr>
+</div>
 <% }) %>
 
 <form method="post">
