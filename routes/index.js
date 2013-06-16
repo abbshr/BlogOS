@@ -114,9 +114,12 @@ module.exports = function(app) {
 	app.post('/post', checkLogin);
 	app.post('/post', function (req, res) {
 		var currentuser = req.session.user,
+		    md5 = crypto.createHash('md5'),
+		    email_MD5 = md5.update(currentuser.email.toLowerCase()).digest('hex'),
+		    headimg = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48",
 		    regexp = /,|，/,
 		    tags = String.prototype.split.call(req.body.tags, regexp, 5),  //最多五个标签
-		    post = new Post(currentuser.name, req.body.title, tags, req.body.post);
+		    post = new Post(currentuser.name, headimg, req.body.title, tags, req.body.post);
 		post.save(function (err) {
 			if (err) {
 				req.flash('error', err);

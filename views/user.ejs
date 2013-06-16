@@ -9,6 +9,7 @@
 		<%- include flashinfo %>
 		<% posts.forEach(function (post, index) { %>
 			<p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
+			<a href="/u/<%= post.name %>"><img src="<%= post.headimg %>" class="r_head" /></a>
 			<p class="info">
 				<label>作者：</label><a href="/u/<%= post.name %>"><%= post.name %></a> | 
 				<label>日期：</label><%= post.time.minute %> | 

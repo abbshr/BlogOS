@@ -3,11 +3,12 @@
 var mongodb = require('./db'),
 	markdown = require('markdown').markdown;
 
-function Post(name, title, tags, post) {
+function Post(name, headimg, title, tags, post) {
 	this.name = name;
 	this.title = title;
 	this.tags = tags;
 	this.post = post;
+	this.headimg = headimg;
 }
 
 module.exports = Post;
@@ -27,6 +28,7 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 	//要存入数据库的文章及信息
 	var post = {
 		name: this.name,
+		headimg: this.headimg,
 		time: time,
 		title: this.title,
 		tags: this.tags,
