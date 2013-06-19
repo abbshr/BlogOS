@@ -16,7 +16,7 @@ module.exports = function(app) {
 				posts = [];
 			}
 			res.render('index', {
-				title: 'DashBoard',
+				title: '主页',
 				user: req.session.user,
 				posts: posts,
 				pagenum: pagenum,
