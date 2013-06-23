@@ -39,13 +39,15 @@ express框架 +
 mongoDb数据库的多人博客系统/社交网络</p>
 
 <hr><h4>
-<a name="bugs-fixed--add-modules" class="anchor" href="#bugs-fixed--add-modules"><span class="octicon octicon-link"></span></a>bugs fixed &amp;&amp; add modules</h4>
+<a name="bugs-fixed--update" class="anchor" href="#bugs-fixed--update"><span class="octicon octicon-link"></span></a>bugs fixed &amp;&amp; update</h4>
 
 <p>2013.6.14 修正了标签显示不正确问题</p>
 
 <p>2013.6.16 修正了头像显示失败问题</p>
 
 <p>2013.6.19 修正了标签未过滤、标题未过滤、注册信息未过滤问题</p>
+
+<p>2013.6.23 重写路由routes模块，方便以后管理；添加删除文章功能</p>
 
 <h4>
 <a name="bugs" class="anchor" href="#bugs"><span class="octicon octicon-link"></span></a>bugs</h4>
@@ -73,7 +75,8 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>编辑个人信息</li>
 <li>添加头像:头像引自gravatar，可到gravatar上选定头像然后将邮箱填写正确 </li>
 <li>pv统计</li>
-<li>管理自己发布的文章</li>
+<li>管理自己发布的文章（搜索、删除、修改）</li>
+<li>接收系统/用户消息</li>
 </ul>
 </li>
 <li>标签</li>
@@ -84,7 +87,6 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>markdown评论</li>
 <li>可视化文本编辑器</li>
 <li>文章检索</li>
-<li>管理员后台</li>
 <li>注册：在注册时最好填写关联gravatar的邮箱以确保头像的正确引用！
 <hr>
 </li>
@@ -101,7 +103,8 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>留言（评论）</li>
 <li>pv统计</li>
 <li>文章搜索</li>
-<li>用户头像
+<li>用户头像</li>
+<li>文章删除
 <hr>
 </li>
 </ul><h4>
@@ -112,7 +115,8 @@ mongoDb数据库的多人博客系统/社交网络</p>
 <li>2013.6.14</li>
 <li>2013.6.15</li>
 <li>2013.6.16</li>
-<li>2013.6.19
+<li>2013.6.19</li>
+<li>2013.6.23
 <hr>
 </li>
 </ul><h4>
@@ -152,7 +156,7 @@ mongod -dbpath "/home/username/myblog/datebase"
 <li>启动应用
 <pre>
 cd myblog/blogos
-node app.js
+sudo node app.js
 </pre>
 </li>
 </ul>
