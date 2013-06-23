@@ -253,16 +253,18 @@ Post.search = function (keyword, callback) {     //按标题搜索
 };
 
 Post.deleteOne = function (post, callback) {       //删除一篇文章
+	console.log(post);
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
 		}
-		db.collection('post', function (err, collection) {
+		db.collection('posts', function (err, collection) {
 			if (err) {
 				mongodb.close();
 				return callback(err);
 			}
 			collection.remove(post, function (err) {
+				console.log(post);
 				mongodb.close();
 				if (err) {
 					return callback (err);

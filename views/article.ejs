@@ -17,8 +17,11 @@
 				<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
 			<% }) %>
 		<% } %>
-		</label> | 
-		<label>浏览：(<%= post.pv %>)</label>
+		</label>
+		<% if (locals.user.name === post.name) { %> | 
+		<label><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/rewrite">修改文章</a></label> |
+		<label><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>/delete">删除这篇</a></label>
+		<% } %>
 		</p>
 		<p><%- post.post %></p><br>
 		<hr>

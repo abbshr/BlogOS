@@ -15,9 +15,10 @@ var checkLogin = require('./ctrlfunction/checkLogin.js'),
     search = require('./search.js'),
     userpage = require('./userpage.js'),
     showArticle = require('./showArticle.js'),
-    delOrCommit = require('./delOrCommit.js'),
+    Commit = require('./Commit.js'),
     rewritepage = require('./rewritepage.js'),
     postRewrite = require('./postRewrite.js'),
+    deletePost = require('./deletePost.js'),
     showArchive = require('./showArchive.js'),
     controlpage = require('./controlpage.js'),
     postUserInfo = require('./postUserInfo.js'),
@@ -53,12 +54,15 @@ module.exports = function(app) {
 	app.get('/u/:name/:day/:title', showArticle);
 	
 	app.post('/u/:name/:day/:title', checkLogin);
-	app.post('/u/:name/:day/:title', delOrCommit);
+	app.post('/u/:name/:day/:title', Commit);
 
 	app.get('/u/:name/:day/:title/rewrite', checkLogin);
 	app.get('/u/:name/:day/:title/rewrite', rewritepage);
 	app.post('/u/:name/:day/:title/rewrite', checkLogin);
 	app.post('/u/:name/:day/:title/rewrite', postRewrite);
+	
+	app.get('/u/:name/:day/:title/delete', checkLogin);
+	app.get('/u/:name/:day/:title/delete', deletePost);
 	
 	app.get('/u/:name/archive', showArchive);
 	
