@@ -227,7 +227,7 @@ Post.getTagPage = function (name, tagname, callback) {   //通过用户和标签
 	});
 };
 
-Post.search = function (keyword, callback) {
+Post.search = function (keyword, callback) {     //按标题搜索
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -249,5 +249,47 @@ Post.search = function (keyword, callback) {
 				callback(null, docs);
 			});
 		});
+	});
+};
+
+Post.deleteOne = function (post, callback) {       //删除一篇文章
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('post', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			collection.remove(post, function (err) {
+				mongodb.close();
+				if (err) {
+					return callback (err);
+				}
+				callback(null);
+			});
+		});
+	});
+};
+
+Post.rewriteOne = function (oldpost, newpost, callback) {    //修改一篇文章
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			collection.update(oldpost, newpost, function (err) {
+				mongodb.close();
+				if (err) {
+					return callback(err);
+				}
+				callback (null);
+			});
+		}); 
 	});
 };

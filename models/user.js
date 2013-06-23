@@ -17,7 +17,14 @@ User.prototype.save = function (callback) {    //存储用户信息
 		name: this.name,
 		password: this.password,
 		email: this.email,
-		message: []
+		realname: null,
+		message: [],
+		qq: null,
+		address: null,
+		college: null,
+		sex: null,
+		website: '',
+		tags: []
 	};
 	
 	//打开数据库
@@ -68,3 +75,27 @@ User.get = function (name, callback) {     //读取用户信息
 		});
 	});
 };
+
+
+User.control = function (name, callback) {            //提供用户信息修改接口
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('users', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			//更新用户信息
+			collection.update({"name": name}, user, function (err) {
+				mongodb.close();
+				if (err) {
+					return callback(err);
+				}
+				callback(null);
+			});   
+			
+		});
+	});
+}
