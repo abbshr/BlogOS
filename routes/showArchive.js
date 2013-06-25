@@ -8,7 +8,7 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {
-		User.get(req.params.name, function (err, user) {
+		User.auth(req.params.name, function (err, user) {
 			if (!user) {
 				req.flash('error', '用户不存在 :(');
 				return res.redirect('/');

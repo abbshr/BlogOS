@@ -10,6 +10,12 @@
 		<span><a title="登录" href="/login">登录</a></span>
 		<span><a title="注册" href="/reg">注册</a></span>
 	<% } %>
+	<% if (!locals.admin) { %>
+		<span><a title="管理员" href="/adminlogin">后台管理</a></span>
+		<span><a title="注册管理员" href="/adminreg">获取root</a></span>
+	<% } else { %>
+		<span><a title="注销" href="/adminlogout">退出root模式</a></span>
+	<% } %>
 	<span>
 	<form action="/search" method="GET">
 		<input type="text" name="keyword" placeholder="SEARCH" class="search" />

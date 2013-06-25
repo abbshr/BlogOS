@@ -1,6 +1,5 @@
 var crypto = require('crypto'),   //生成散列值来加密密码
-	User = require('../models/user.js'),
-	Post = require('../models/post.js'),
+	Admin = require('../models/admin.js'),
 	Comment = require('../models/comment.js'),
 	checkReg = require('./ctrlfunction/checkReg.js'),
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
@@ -10,17 +9,17 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 module.exports = function (req, res) {
 	var md5 = crypto.createHash('md5'),
 		password = md5.update(req.body.password).digest('hex');
-	User.auth(req.body.name, function (err, user) {
-		if (!user) {
+	Admin.auth(req.body.name, function (err, admin) {
+		if (!admin) {
 			req.flash('error', '用户不存在！');
-			return res.redirect('/login');
+			return res.redirect('/adminlogin');
 		}
-		if (password !== user.password) {
+		if (password !== admin.password) {
 			req.flash('error', '密码错误 :(');
-			return res.redirect('/login');
+			return res.redirect('/adminlogin');
 		}
-		req.session.user = user;
+		req.session.admin = admin;
 		req.flash('success', '登录成功 :)');
-		res.redirect('/');
+		res.redirect('/admin');
 	});
 };

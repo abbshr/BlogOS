@@ -2,6 +2,8 @@
 
 var checkLogin = require('./ctrlfunction/checkLogin.js'),
     checkNotLogin = require('./ctrlfunction/checkNotLogin.js'),
+    checkAdLogin = require('./ctrlfunction/checkAdLogin.js'),
+    checkAdNotLogin = require('./ctrlfunction/checkAdNotLogin.js');
      
     //引入路由控制函数
     dash = require('./dash.js'),
@@ -24,10 +26,34 @@ var checkLogin = require('./ctrlfunction/checkLogin.js'),
     postUserInfo = require('./postUserInfo.js'),
     showAllTags = require('./showAllTags.js'),
     allTagArticles = require('./allTagArticles.js'),
-    showUserTags = require('./showUserTags.js')
+    showUserTags = require('./showUserTags.js'),
+    
+    adminReg = require('./adminReg.js'),
+    doAdminReg = require('./doAdminReg.js'),
+    adminLogin = require('./adminLogin.js'),
+    doAdminLogin = require('./doAdminLogin.js'),
+    adminlogout = require('./adminlogout.js'),
+    adminpage = require('./adminpage.js');
 
 module.exports = function(app) {
 	app.get('/', dash);
+	
+	app.get('/adminreg', checkAdNotLogin);
+	app.get('/adminreg', adminReg);
+	app.post('/adminreg', checkAdNotLogin);
+	app.post('/adminreg', doAdminReg);
+	
+	app.get('/adminlogin', checkAdNotLogin);
+	app.get('/adminlogin', adminLogin);
+	app.post('/adminlogin', checkAdNotLogin);
+	app.post('/adminlogin', doAdminLogin);
+	
+	app.get('/adminlogout', adminlogout);
+	
+	app.get('/admin', checkAdLogin);
+	app.get('/admin', adminpage);
+	
+	//添加管理员的操作
 	
 	app.get('/reg', checkNotLogin);
 	app.get('/reg', showReg);

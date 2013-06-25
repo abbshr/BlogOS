@@ -15,7 +15,7 @@ module.exports = function (req, res) {
 		post.title = req.params.title; 
 		post["time.day"] = req.params.day;
 		console.log(post);
-		Post.deleteOne(post, function (err) {
+		Post.delete(post, function (err) {
 			if (err) {
 				req.flash('error', err);
 			} else {

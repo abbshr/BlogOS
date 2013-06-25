@@ -227,7 +227,7 @@ Post.getTagPage = function (name, tagname, callback) {   //通过用户和标签
 	});
 };
 
-Post.search = function (keyword, callback) {     //按标题搜索
+Post.search = function (keyword, callback) {     //搜索posts
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -237,10 +237,18 @@ Post.search = function (keyword, callback) {     //按标题搜索
 				mongodb.close();
 				return callback(err);
 			}
+			var query = {};
 			var pattern = new RegExp("^.*" + keyword + ".*$", "i"); //关键词模式匹配
-			collection.find({
-				"title": pattern
-			}).sort({time: -1}).toArray(function (err, docs) {
+			if (keyword) {
+				query = {'$or': 
+					[{'title': pattern},
+					{'tags': pattern},
+					{'time.day': pattern},
+					{'name': pattern}
+					]
+				};
+			}
+			collection.find(query).sort({time: -1}).toArray(function (err, docs) {
 				console.log(docs);
 				mongodb.close();
 				if (err) {
@@ -252,7 +260,7 @@ Post.search = function (keyword, callback) {     //按标题搜索
 	});
 };
 
-Post.deleteOne = function (post, callback) {       //删除一篇文章
+Post.delete = function (post, callback) {       //删除文章
 	console.log(post);
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -263,7 +271,11 @@ Post.deleteOne = function (post, callback) {       //删除一篇文章
 				mongodb.close();
 				return callback(err);
 			}
-			collection.remove(post, function (err) {
+			var query = {};
+			if (post) {
+				query = post;
+			}
+			collection.remove(query, function (err) {
 				console.log(post);
 				mongodb.close();
 				if (err) {

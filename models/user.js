@@ -47,6 +47,30 @@ User.prototype.save = function (callback) {    //存储用户信息
 	});
 };
 
+User.auth = function (name, callback) {
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		//读取users集合
+		db.collection('users', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			//查找用户名name，值为name的数据块
+			collection.findOne({name: name}, function (err, doc) {
+				mongodb.close();
+				if (doc) {
+					var user = new User(doc);
+					callback(err, user);   //成功，返回查询用户信息
+				} else {
+					callback(err, null);   //失败，返回null
+				}
+			});
+		});
+	});
+};
 
 User.get = function (name, callback) {     //读取用户信息
 	//打开数据库
@@ -60,13 +84,14 @@ User.get = function (name, callback) {     //读取用户信息
 				mongodb.close();
 				return callback(err);
 			}
+			var query = {};
+			if (name) {
+				query.name = name;
+			}
 			//查找用户名name，值为name的数据块
-			collection.findOne({
-				name: name
-			}, function (err, doc) {
+			collection.find(query, function (err, doc) {
 				mongodb.close();
 				if (doc) {
-					var user = new User(doc);
 					callback(err, user);   //成功，返回查询用户信息
 				} else {
 					callback(err, null);   //失败，返回null
@@ -98,4 +123,30 @@ User.control = function (name, callback) {            //提供用户信息修改
 			
 		});
 	});
-}
+};
+
+User.delete = function (name, callback) {
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		db.collection('users', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			var query = {};
+			if (name) {
+				query.name = name;
+			}
+			collection.remove(query, function (err) {
+				mongodb.close();
+				if (err) {
+					return callback(err);
+				}
+				callback(null);
+			});
+		});
+	});
+};
+
