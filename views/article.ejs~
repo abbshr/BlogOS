@@ -27,6 +27,5 @@
 		<hr>
 		<%- include comment %>
 		<%- include foot %>
-		<%- include script %>
 	</body>
 </html>

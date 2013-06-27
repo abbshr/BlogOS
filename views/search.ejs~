@@ -23,6 +23,5 @@
 			<p>没找到相关文章 :(</p>
 		<% } %>
 		<%- include foot %>
-		<%- include script %>
 	</body>
 </html>

@@ -9,7 +9,6 @@
 (function () {
 	var BlogOS = {
 		init: function () {
-		window.onload = function () {
 			BlogOS.loopByTag('img', BlogOS.standardImage, function (img) {
 				if (!img.className && img.width > 600) { 
 					return true;
@@ -24,7 +23,6 @@
 				}
 				return false;
 			});*/
-			};
 			delete this.init;
 			return this;
 		},
@@ -61,6 +59,7 @@
 					j++;
 				}
 			}
+			console.log(newele);
 			return newele;
 		},
 		
