@@ -14,19 +14,25 @@ module.exports = function (req, res) {   //提交修改的一篇文章
 		}
 		var newpost = {},
 		    oldpost = {};
-		for (var j in req.params) {
-			oldpost[j] = req.params[j];
-		}
-		for (var i in req.body) {
-			newpost[i] = req.body[i];
-		}
+		oldpost.name = req.params.name;
+		oldpost.title = req.params.title;
+		oldpost['time.day'] = req.params.day;
+		var regexp = /,|，/,
+		    tags = checkSpace(req.body.tags),   //去除首末空格
+		    tags = checkSpecialChar(tags),      //去除特殊字符
+		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
+		    tags = getRealTags(tags),           //得到规范标签
+		    title = checkSpace(req.body.title); //去除首末空格
+		newpost.title = title;
+		newpost.tags = tags;
 		newpost.name = req.session.user.name;
+		newpost.post = req.body.post;
 		Post.rewriteOne(oldpost, newpost, function (err) {
 			if (err) {
 				req.flash('error', err);
 			} else {
 				req.flash('success', "~:)");
 			}
-			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + newpost.title);
 		});
 };

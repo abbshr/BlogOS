@@ -12,12 +12,13 @@ module.exports = function (req, res) {   //获取修改一篇文章的页面
 			req.flash('error', "……zzz");
 			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
 		}
-		Post.getOne(req.params.name, req.params.day, req.params.title, function (err, post) {
+		Post.getOne(false, req.session.user.name, req.params.name, req.params.day, req.params.title, function (err, post) {
 			if (err) {
 				req.flash('error', err);
 				res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
 			}
-			res.render('rewrite', {
+			post.tags = post.tags.join(',');
+			res.render('post', {
 				title: '修改文章',
 				post: post,
 				user: req.session.user,

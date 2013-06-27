@@ -7,13 +7,25 @@
 		<%- include title %>
 		<%- include navbar %>
 		<%- include flashinfo %>
+		<% if (post) { %>
 		<form method="post">
-			<label>文章标题：</label><input type="text" name="title" /><br>
-			<label>添加标签：(最多支持5个标签)</label><input type="text" name="tags" /><br>
+			<label>文章标题：</label><input type="text" name="title" ><%- post.title %></input><br>
+			<label>添加标签：(最多支持5个标签)</label><input type="text" name="tags"><%- post.tags %></input><br>
+			<label>文章正文：(支持markdown语法)</label><br>
+			<textarea name="post" rows="20" cols="100"><%- post.post %></textarea><br>
+			<input type="submit" value="发表" />
+			<a href='/'>取消</a>
+		</form>
+		<% } else { %>
+		<form method="post">
+			<label>文章标题：</label><input type="text" name="title" ><br>
+			<label>添加标签：(最多支持5个标签)</label><input type="text" name="tags"><br>
 			<label>文章正文：(支持markdown语法)</label><br>
 			<textarea name="post" rows="20" cols="100"></textarea><br>
 			<input type="submit" value="发表" />
+			<a href='/'>取消</a>
 		</form>
+		<% } %>
 		<%- include foot %>
 	</body>
 </html>

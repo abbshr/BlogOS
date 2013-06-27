@@ -109,7 +109,7 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 	});
 };
 
-Post.getOne = function (lookname, name, day, title, callback) {   //获取一篇文章
+Post.getOne = function (flag, lookname, name, day, title, callback) {   //获取一篇文章,参数为false获取原版内容，为true时获取markdown转译内容
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -142,7 +142,7 @@ Post.getOne = function (lookname, name, day, title, callback) {   //获取一篇
 				}
 				
 				//解析markdown为html
-				if (doc) {
+				if (doc && flag) {
 					doc.post = markdown.toHTML(doc.post);
 					if (doc.comments) {
 						doc.comments.forEach(function (comment) {
@@ -297,12 +297,22 @@ Post.rewriteOne = function (oldpost, newpost, callback) {    //修改一篇文�
 				mongodb.close();
 				return callback(err);
 			}
-			collection.update(oldpost, newpost, function (err) {
-				mongodb.close();
+			collection.findOne(oldpost, function (err, doc) {
 				if (err) {
+					mongodb.close();
 					return callback(err);
 				}
-				callback (null);
+				doc.name = newpost.name;
+				doc.title = newpost.title;
+				doc.tags = newpost.tags;
+				doc.post = newpost.post;
+				collection.update(oldpost, doc, function (err) {
+					mongodb.close();
+					if (err) {
+						return callback(err);
+					}
+					callback (null);
+				});
 			});
 		}); 
 	});
