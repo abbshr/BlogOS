@@ -8,16 +8,22 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {
-	var currentuser = req.session.user,
-		md5 = crypto.createHash('md5'),
-		email_MD5 = md5.update(currentuser.email.toLowerCase()).digest('hex'),
+		if (!req.body.title) {    //防止空标题
+			req.flash('error', '请填写标题~');
+			return res.redirect('/post');
+		}
+		var currentuser = req.session.user,
+			md5 = crypto.createHash('md5'),
+			email_MD5 = md5.update(currentuser.email.toLowerCase()).digest('hex'),
 		    headimg = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48",
 		    regexp = /,|，/,
 		    tags = checkSpace(req.body.tags),   //去除首末空格
 		    tags = checkSpecialChar(tags),      //去除特殊字符
 		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
-		    tags = getRealTags(tags),           //得到规范标签
-		    title = checkSpace(req.body.title), //去除首末空格
+		    title = checkSpace(req.body.title); //去除首末空格
+		    if (req.body.tags) {
+		    	tags = getRealTags(tags);  //得到规范标签
+		    }    
 		    post = new Post(currentuser.name, headimg, title, tags, req.body.post);
 		post.save(function (err) {
 			if (err) {
