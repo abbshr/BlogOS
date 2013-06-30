@@ -61,6 +61,9 @@ MongoDb数据库的多人博客系统/社交网络</p>
 
 <p>2013.6.27 添加文章修改功能；修正文章发布空标题出错问题</p>
 
+<p>2013.6.30 修正数据库连接信息问题：“Please ensure that you set the default write concern for the database by setting =
+= one of the options =”</p>
+
 <h4>
 <a name="bugs" class="anchor" href="#bugs"><span class="octicon octicon-link"></span></a>bugs</h4>
 
@@ -172,12 +175,12 @@ cd blog&amp;&amp;npm install
 <li>进入mongodb/bin，开启mongoDb数据库
 <pre>
 cd mongodb/bin
-mongod -dbpath "/home/username/myblog/datebase" 
+mongod --dbpath "/home/username/myblog/datebase" 
 </pre>
 </li>
 <li>启动应用
 <pre>
-cd myblog/blogos
+cd blogos
 sudo node app.js
 </pre>
 </li>
