@@ -2,8 +2,8 @@
 
 ####这是一个基于
 Node.js平台 + 
-express框架 + 
-mongoDb数据库的多人博客系统/社交网络
+使用JavaScript编写 + 
+MongoDb数据库的多人博客系统/社交网络
 <hr>
 
 ####目前项目已在appfog云服务上托管，地址：http://blogos.ap01.aws.af.cm/
