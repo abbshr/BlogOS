@@ -28,6 +28,9 @@ mongoDb数据库的多人博客系统/社交网络
 
 2013.6.27 添加文章修改功能；修正文章发布空标题出错问题
 
+2013.6.30 修正数据库连接信息问题：“Please ensure that you set the default write concern for the database by setting =
+= one of the options =”
+
 ####bugs
 
 2013.6.27 文章标题为空时未作处理。已解决。
@@ -121,10 +124,10 @@ mongoDb数据库的多人博客系统/社交网络
 + 进入mongodb/bin，开启mongoDb数据库
 <pre>
     cd mongodb/bin
-    mongod -dbpath "/home/username/myblog/datebase" 
+    mongod --dbpath "/home/username/myblog/datebase" 
 </pre>
 + 启动应用
 <pre>
-    cd myblog/blogos
+    cd blogos
     sudo node app.js
 </pre>
