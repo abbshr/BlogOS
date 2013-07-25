@@ -83,24 +83,23 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 				query.name = name;
 			}
 			
-			var tposnum;    //获取po总数量
+			var tposnum,    //获取po总数量
+				tpages;		//获取总页数
 			collection.count(function (err, count) {
 				tposnum = count;
-			});
-			
-			var tpages = Math.ceil(tposnum/15);       //获取总页数
-			
+				tpages = Math.ceil(tposnum/15);      
 				//根据query对象查询文章，跳过前（pagenum - 1）*15个结果，返回后15个并按降序存在数组里
-			collection.find(query, {skip: (pagenum - 1)*15, limit: 15}).sort({time: -1}).toArray(function (err, docs) {
-				mongodb.close();
-				if (err) {
-					return callback(err, null);  //若失败返回null
-				}
+				collection.find(query, {skip: (pagenum - 1)*15, limit: 15}).sort({time: -1}).toArray(function (err, docs) {
+					mongodb.close();
+					if (err) {
+						return callback(err, null);  //若失败返回null
+					}
 					//解析markdown为html
-				docs.forEach(function (doc) {
-					doc.post = markdown.toHTML(doc.post);
+					docs.forEach(function (doc) {
+						doc.post = markdown.toHTML(doc.post);
+					});
+					callback(null, docs, tpages);     //成功则以数组形式返回查询结果
 				});
-				callback(null, docs, tpages);     //成功则以数组形式返回查询结果
 			});
 		});
 	});
