@@ -4,11 +4,11 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	Comment = require('../models/comment.js'),
 	checkReg = require('./ctrlfunction/checkReg.js'),
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
-	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
+	checkRegExpChar = require('./ctrlfunction/checkRegExpChar.js'),
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {    
-	keyword = checkSpecialChar(req.query.keyword);
+	keyword = checkRegExpChar(req.query.keyword);
 	Post.search(keyword, function (err, posts) {
 		if (err) {
 			req.flash('error', err);
