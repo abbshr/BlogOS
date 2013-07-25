@@ -2,7 +2,8 @@
 
 var mongodb = require('./db'),
 	User = require('./user'),
-	Post = require('./post');
+	Post = require('./post'),
+	AppInfo = require('./appinfo.js');
 
 
 function Admin(admin) {
@@ -79,14 +80,18 @@ Admin.deletePost = Post.delete;            //按条件给定文章或null删除�
 
 Admin.queryPost = Post.search;              //指定{标题 | 作者 | 时间 | 标签}或null分别按条件查询和显示所有
 
-Admin.updatePost = Post.rewrite;              
+Admin.updatePost = Post.rewrite;   
 
-Admin.showDataBase = function () {
-	//获取应用的详细信息
-};
+Admin.deleteAppInfo = AppInfo.deleteAppInfo;    //清空应用信息  
 
-Admin.deleteDataBase = function (callback) {
-	this.deleteUser(null, callback);
-	this.deletePost(null, callback);
+Admin.getAppInfo = AppInfo.getInfo;  //获取应用详细信息
+
+Admin.refreshInfo = AppInfo.refreshInfo;   //刷新应用信息         
+
+Admin.clearDataBase = function (callback) {     //清空数据库
+	this.deleteUser(null, function (err) {
+		Admin.deletePost(null, function (err) {
+			Admin.deleteAppInfo(callback);
+		});
+	});
 }; 
-

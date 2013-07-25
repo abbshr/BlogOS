@@ -9,12 +9,11 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 
 
 module.exports = function (req, res) {
-	if (req.session.user.name === req.params.name) {
+	if (req.session.user.name === req.params.name || req.session.admin) {
 		var post = {};
 		post.name = req.params.name;
 		post.title = req.params.title; 
 		post["time.day"] = req.params.day;
-		console.log(post);
 		Post.delete(post, function (err) {
 			if (err) {
 				req.flash('error', err);

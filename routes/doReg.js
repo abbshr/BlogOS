@@ -2,6 +2,7 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	User = require('../models/user.js'),
 	Post = require('../models/post.js'),
 	Comment = require('../models/comment.js'),
+	AppInfo = require('../models/appinfo.js'),
 	checkReg = require('./ctrlfunction/checkReg.js'),
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
 	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
@@ -39,15 +40,20 @@ module.exports = function (req, res) {
 			req.flash('error', err);
 			return res.redirect('/reg');
 		}
-			
 		newUser.save(function (err) {
 			if (err) {
 				req.flash('error', err);
 				return res.redirect('/reg');
 			}
-			req.session.user = newUser;  //用户信息存入session中
-			req.flash('success', '注册成功 :)');
-			res.redirect('/');
+			AppInfo.incUsersNum(function (err) {
+				if (err) {
+					req.flash('error', err);
+					return res.redirect('/reg');
+				}
+				req.session.user = newUser;  //用户信息存入session中
+				req.flash('success', '注册成功 :)');
+				res.redirect('/');
+			});
 		}); 
 	});
 };

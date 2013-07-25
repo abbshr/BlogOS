@@ -8,7 +8,7 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {   //提交修改的一篇文章
-		if (req.params.name !== req.session.user.name) {
+		if (req.params.name !== req.session.user.name && !req.session.admin) {
 			req.flash('error', '你不是用户本人~');
 			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
 		}

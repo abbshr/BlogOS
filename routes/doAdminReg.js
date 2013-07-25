@@ -4,7 +4,8 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
 	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
 	getRealTags = require('./ctrlfunction/getRealTags.js'),
-	rootInfo = require('../rootinfo.js');
+	rootInfo = require('../rootinfo.js'),
+    AppInfo = require('../models/appinfo.js');
 	
 module.exports = function (req, res) {
 	var name = req.body.name,
@@ -36,7 +37,7 @@ module.exports = function (req, res) {
 		//检测用户是否已经存在
 	Admin.auth(newAdmin.name, function (err, user) {
 		if (user) {
-			err = "root已存在";
+			err = "该root已存在！";
 		}
 		if (err) {
 			req.flash('error', err);
@@ -48,9 +49,15 @@ module.exports = function (req, res) {
 				req.flash('error', err);
 				return res.redirect('/adminreg');
 			}
-			req.session.admin = newAdmin;  //用户信息存入session中
-			req.flash('success', '注册成功 :)');
-			res.redirect('/admin');
+			AppInfo.incAdminsNum(function (err) {
+				if (err) {
+					req.flash('error', err);
+					return res.redirect('/adminreg');
+				}
+				req.session.admin = newAdmin;  //管理员信息存入session中
+				req.flash('success', '注册成功 :)');
+				res.redirect('/admin');
+			});
 		}); 
 	});
 };

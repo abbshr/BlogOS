@@ -82,28 +82,25 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 			if (name) {
 				query.name = name;
 			}
-			collection.find(query).toArray(function (err, posarr) {
-				if (err) {
-					mongodb.close();
-					return callback(err);
-				}
-				var tposnum = posarr.length;           //获取po总数量
-				var tpages = Math.ceil(tposnum/15);       //获取总页数
+			
+			var tposnum;    //获取po总数量
+			collection.count(function (err, count) {
+				tposnum = count;
+			});
+			
+			var tpages = Math.ceil(tposnum/15);       //获取总页数
 			
 				//根据query对象查询文章，跳过前（pagenum - 1）*15个结果，返回后15个并按降序存在数组里
-				collection.find(query, {skip: (pagenum - 1)*15, limit: 15}).sort({
-					time: -1
-				}).toArray(function (err, docs) {
-					mongodb.close();
-					if (err) {
-						callback(err, null);  //若失败返回null
-					}
+			collection.find(query, {skip: (pagenum - 1)*15, limit: 15}).sort({time: -1}).toArray(function (err, docs) {
+				mongodb.close();
+				if (err) {
+					return callback(err, null);  //若失败返回null
+				}
 					//解析markdown为html
-					docs.forEach(function (doc) {
-						doc.post = markdown.toHTML(doc.post);
-					});
-					callback(null, docs, tpages);     //成功则以数组形式返回查询结果
+				docs.forEach(function (doc) {
+					doc.post = markdown.toHTML(doc.post);
 				});
+				callback(null, docs, tpages);     //成功则以数组形式返回查询结果
 			});
 		});
 	});
@@ -122,26 +119,25 @@ Post.getOne = function (flag, lookname, name, day, title, callback) {   //获取
 				mongodb.close();
 				return callback(err);
 			}
-			
+			var query = {};
 			//根据用户名、发表日期、文章标题进行查询
-			collection.findOne({
+			if (lookname !== name) {
+				query['pv'] = 1;
+			}
+			collection.findAndModify({   //增加pv
 				"name": name,
 				"time.day": day,
-				"title": title
-			}, function (err, doc) {
-				if (lookname !== name) {
-					collection.update({   //增加pv
-						"name": name,
-						"time.day": day,
-						"title": title 
-					}, {$inc: {"pv": 1}});
-				}
+				"title": title 
+			}, 
+			[["time", -1]],
+			{$inc: query}, 
+			{new: true}, 
+			function (err, doc) {
 				mongodb.close();
 				if (err) {
 					return callback(err, null);
 				}
-				
-				//解析markdown为html
+					//解析markdown为html
 				if (doc && flag) {
 					doc.post = markdown.toHTML(doc.post);
 					if (doc.comments) {
@@ -249,7 +245,6 @@ Post.search = function (keyword, callback) {     //搜索posts
 				};
 			}
 			collection.find(query).sort({time: -1}).toArray(function (err, docs) {
-				console.log(docs);
 				mongodb.close();
 				if (err) {
 					return callback(err, null);
@@ -261,7 +256,6 @@ Post.search = function (keyword, callback) {     //搜索posts
 };
 
 Post.delete = function (post, callback) {       //删除文章
-	console.log(post);
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -276,7 +270,6 @@ Post.delete = function (post, callback) {       //删除文章
 				query = post;
 			}
 			collection.remove(query, function (err) {
-				console.log(post);
 				mongodb.close();
 				if (err) {
 					return callback (err);
@@ -297,22 +290,12 @@ Post.rewriteOne = function (oldpost, newpost, callback) {    //修改一篇文�
 				mongodb.close();
 				return callback(err);
 			}
-			collection.findOne(oldpost, function (err, doc) {
+			collection.update(oldpost, {$set: newpost}, function (err) {
+				mongodb.close();
 				if (err) {
-					mongodb.close();
 					return callback(err);
 				}
-				doc.name = newpost.name;
-				doc.title = newpost.title;
-				doc.tags = newpost.tags;
-				doc.post = newpost.post;
-				collection.update(oldpost, doc, function (err) {
-					mongodb.close();
-					if (err) {
-						return callback(err);
-					}
-					callback (null);
-				});
+				callback (null);
 			});
 		}); 
 	});

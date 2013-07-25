@@ -5,7 +5,8 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	checkReg = require('./ctrlfunction/checkReg.js'),
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
 	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
-	getRealTags = require('./ctrlfunction/getRealTags.js');
+	getRealTags = require('./ctrlfunction/getRealTags.js'),
+    AppInfo = require('../models/appinfo.js');
 	
 module.exports = function (req, res) {
 		if (!req.body.title) {    //防止空标题
@@ -25,12 +26,19 @@ module.exports = function (req, res) {
 		    	tags = getRealTags(tags);  //得到规范标签
 		    }    
 		    post = new Post(currentuser.name, headimg, title, tags, req.body.post);
+		    
 		post.save(function (err) {
 			if (err) {
 				req.flash('error', err);
 				return res.redirect('/');
 			}
-			req.flash('success', '发布成功 :)');
-			res.redirect('/');
+			AppInfo.incPostsNum(function (err) {
+				if (err) {
+					req.flash('error', err);
+					return res.redirect('/');
+				}
+				req.flash('success', '发布成功 :)');
+				res.redirect('/');
+			});
 		});
 };
