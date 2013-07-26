@@ -42,61 +42,12 @@ var checkLogin = require('./ctrlfunction/checkLogin.js'),
     deleteUser = require('./deluser.js'),
     adDelPost = require('./addelpost.js'),
     queryPost = require('./querypost.js'),
-    updatePost = require('./updatepost.js');
+    updatePost = require('./updatepost.js'),
+    updateUser = require('./updateuser.js');
 
 module.exports = function(app) {
-	app.get('/', dash);
-	
-	//普通用户操作
-	
-	app.get('/reg', checkNotLogin);
-	app.get('/reg', showReg);
-	app.post('/reg', checkNotLogin);
-	app.post('/reg', doReg);
-	
-	app.get('/login', checkNotLogin);
-	app.get('/login', showLogin);
-	app.post('/login', checkNotLogin);
-	app.post('/login', doLogin);
-		
-	app.get('/post', checkLogin);
-	app.get('/post', postpage);
-	app.post('/post', checkLogin);
-	app.post('/post', doPost);
-	
-	app.get('/logout', checkLogin);
-	app.get('/logout', logout);
-	
-	app.get('/search', search);
-	
-	app.get('/u/:name', userpage);
-	
-	app.get('/u/:name/:day/:title', showArticle);
-	
-	app.post('/u/:name/:day/:title', checkLogin);
-	app.post('/u/:name/:day/:title', Commit);
 
-	app.get('/u/:name/:day/:title/rewrite', checkLogin);
-	app.get('/u/:name/:day/:title/rewrite', rewritepage);
-	app.post('/u/:name/:day/:title/rewrite', checkLogin);
-	app.post('/u/:name/:day/:title/rewrite', postRewrite);
-	
-	app.get('/u/:name/:day/:title/delete', checkLogin);
-	app.get('/u/:name/:day/:title/delete', deletePost);
-	
-	app.get('/u/:name/archive', showArchive);
-	
-	app.get('/control', checkLogin);
-	app.get('/control', controlpage);
-	app.post('/control', checkLogin);
-	app.post('/control', postUserInfo);
-	
-	app.get('/tags',showAllTags);
-	app.get('/tags/:tagname', allTagArticles);
-	
-	app.get('/u/:name/tags', showUserTags);
-	
-	//添加管理员的操作
+	//管理员的操作
 	
 	app.get('/adminreg', checkAdNotLogin);
 	app.get('/adminreg', adminReg);
@@ -139,7 +90,61 @@ module.exports = function(app) {
 	app.post('/admin/updatepost', checkAdLogin);
 	app.post('/admin/updatepost', updatePost);
 	
-	//添加404响应页面
+	app.get('/admin/updateuser', checkAdLogin);
+	app.get('/admin/updateuser', controlpage);
+	app.post('/admin/updateuser', checkAdLogin);
+	app.post('/admin/updateuser', updateUser);
+
+	//普通用户操作
+	
+	app.get('/', dash);
+	
+	app.get('/reg', checkNotLogin);
+	app.get('/reg', showReg);
+	app.post('/reg', checkNotLogin);
+	app.post('/reg', doReg);
+	
+	app.get('/login', checkNotLogin);
+	app.get('/login', showLogin);
+	app.post('/login', checkNotLogin);
+	app.post('/login', doLogin);
+		
+	app.get('/post', checkLogin);
+	app.get('/post', postpage);
+	app.post('/post', checkLogin);
+	app.post('/post', doPost);
+	
+	app.get('/logout', checkLogin);
+	app.get('/logout', logout);
+	
+	app.get('/search', search);
+	
+	app.get('/u/:name', userpage);
+	
+	app.get('/u/:name/:day/:title', showArticle);
+	
+	app.post('/u/:name/:day/:title', checkLogin);
+	app.post('/u/:name/:day/:title', Commit);
+
+	app.get('/u/:name/:day/:title/rewrite', checkLogin);
+	app.get('/u/:name/:day/:title/rewrite', rewritepage);
+	app.post('/u/:name/:day/:title/rewrite', checkLogin);
+	app.post('/u/:name/:day/:title/rewrite', postRewrite);
+	
+	app.get('/u/:name/:day/:title/delete', checkLogin);
+	app.get('/u/:name/:day/:title/delete', deletePost);
+	
+	app.get('/u/:name/archive', showArchive);
+	
+	app.get('/profile/:name', controlpage);
+	app.post('/profile/:name', postUserInfo);
+	
+	app.get('/tags', showAllTags);
+	app.get('/tags/:tagname', allTagArticles);
+	
+	app.get('/u/:name/tags', showUserTags);
+	
+	//404响应页面
 	
 	app.all('*', function (req, res) {    
 		res.render('404');

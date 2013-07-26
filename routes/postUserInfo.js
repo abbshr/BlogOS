@@ -8,17 +8,21 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {         //用户提交修改信息
+	if (req.session.admin || (req.session.user && req.session.user.name === req.params.name)) {
 		var user = {};
 		for (var i in req.body) {
 			user[i] = req.body[i];
 		}
-		user.name = req.session.user.name;
-		User.control(user, function (err) {
+		User.control(req.params.name, user, function (err) {
 			if (err) {
 				req.flash('error', err);
 			} else {
 				req.flash('success', '修改成功:)');
 			}
-			res.redirect('/u/' + req.session.user.name);
+			res.redirect('/profile/' + req.session.user.name);
 		});
+	} else {
+		req.flash('error', '你目前无权操作！~');
+		res.redirect('/profile/' + req.params.name);
+	}
 };

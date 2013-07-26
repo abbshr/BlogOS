@@ -20,7 +20,9 @@ module.exports = function (req, res) {
 				}
 				res.render('archive', {
 					title: user.name,
-					currentuser: user.name,
+					currentuser: {
+						name: user.name
+					},
 					posts: posts,
 					user: req.session.user,
 					success: req.flash('success').toString(),

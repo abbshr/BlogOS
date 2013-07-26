@@ -1,19 +1,22 @@
 <nav>
 	<span><a title="主页" href="/">DashBoard</a></span>
 	<span><a title="标签" href="/tags">所有标签</a></span>
-	<% if (locals.user && locals.user.name === currentuser) { %>
-		<span><a title="归档" href="/u/<%= currentuser %>/archive">我的归档</a></span>
-		<span><a title="标签" href="/u/<%= currentuser %>/tags">我的标签</a></span>
+	<% if (locals.user && locals.user.name === currentuser.name) { %>
+		<span><a title="profile" href="/profile/<%= currentuser.name %>">Profile</a></span>
+		<span><a title="归档" href="/u/<%= currentuser.name %>/archive">我的归档</a></span>
+		<span><a title="标签" href="/u/<%= currentuser.name %>/tags">我的标签</a></span>
 		<span><a title="发布" href="/post">发布</a></span>
 		<span><a title="注销" href="/logout">注销</a></span>
 	<% } else if (!locals.user) { %>
-		<span><a title="归档" href="/u/<%= currentuser %>/archive">ta的归档</a></span>
-		<span><a title="标签" href="/u/<%= currentuser %>/tags">ta的标签</a></span>
+		<span><a title="profile" href="/profile/<%= currentuser.name %>">ta的Profile</a></span>
+		<span><a title="归档" href="/u/<%= currentuser.name %>/archive">ta的归档</a></span>
+		<span><a title="标签" href="/u/<%= currentuser.name %>/tags">ta的标签</a></span>
 		<span><a title="登录" href="/login">登录</a></span>
 		<span><a title="注册" href="/reg">注册</a></span>
 	<% } else { %>
-		<span><a title="归档" href="/u/<%= currentuser %>/archive">ta的归档</a></span>
-		<span><a title="标签" href="/u/<%= currentuser %>/tags">ta的标签</a></span>
+		<span><a title="profile" href="/profile/<%= currentuser.name %>">ta的Profile</a></span>
+		<span><a title="归档" href="/u/<%= currentuser.name %>/archive">ta的归档</a></span>
+		<span><a title="标签" href="/u/<%= currentuser.name %>/tags">ta的标签</a></span>
 	<% } %>
 	<span>
 	<form action="/search" method="GET">

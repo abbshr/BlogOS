@@ -74,8 +74,6 @@ Admin.updateUser = User.control;
 
 Admin.deleteUser = User.delete;    //按条件给定用户名或null删除指定或全部
 
-Admin.addUser = User.save;
-
 Admin.deletePost = Post.delete;            //按条件给定文章或null删除指定或全部
 
 Admin.queryPost = Post.search;              //指定{标题 | 作者 | 时间 | 标签}或null分别按条件查询和显示所有

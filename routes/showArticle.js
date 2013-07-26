@@ -19,7 +19,9 @@ module.exports = function (req, res) {
 			}
 			res.render('article', {
 				title: req.params.title,
-				currentuser: req.params.name,
+				currentuser: {
+					name: req.params.name
+				},
 				post: post,
 				user: req.session.user,
 				success: req.flash('success').toString(),

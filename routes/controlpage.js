@@ -8,14 +8,26 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {      //个人中心
-		if (!req.session.user) {
-			req.flash('error', "你还没登录~");
-			res.redirect('/login');
-		}
-		res.render('control', {
-			title: '帐户设置',
-			user: req.session.user,
-			success: req.flash('success').toString(),
-			error: req.flash('error').toString()
+		User.get(req.params.name, function (err, user) {
+			if (err) {
+				req.flash('error', err);
+				if (req.session.admin) {
+					return res.redirect('/admin');
+				} else {
+					return res.redirect('/u/' + req.params.name);
+				}
+			}
+			var tit = 'ta的档案';
+			if (req.session.admin || (req.session.user && req.session.user.name === req.params.name)) {
+				tit = '帐户设置';
+			} 
+			res.render('profile', {
+				title: tit,
+				currentuser: user[0],
+				user: req.session.user,
+				admin: req.session.admin,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
 		});
 };

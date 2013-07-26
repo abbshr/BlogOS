@@ -24,7 +24,9 @@ module.exports = function (req, res) {
 				}
 				res.render('user', {
 					title: user.name,
-					currentuser: req.params.name,
+					currentuser: {
+						name: req.params.name
+					},
 					posts: posts,
 					pagenum: pagenum,
 					tpages: tpages,

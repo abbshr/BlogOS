@@ -17,14 +17,14 @@ User.prototype.save = function (callback) {    //存储用户信息
 		name: this.name,
 		password: this.password,
 		email: this.email,
-		realname: null,
-		message: [],
-		qq: null,
-		address: null,
-		college: null,
-		sex: null,
+		realname: '',
+		tel: '',
+		qq: '',
+		address: '',
+		college: '',
+		sex: '',
 		website: '',
-		tags: []
+		tags: ['']
 	};
 	
 	//打开数据库
@@ -89,10 +89,10 @@ User.get = function (name, callback) {     //读取用户信息
 				query.name = name;
 			}
 			//查找用户名name，值为name的数据块
-			collection.find(query, function (err, doc) {
+			collection.find(query).toArray(function (err, docs) {   //**注意find的返回应转化为数组，否则会出错
 				mongodb.close();
-				if (doc) {
-					callback(err, user);   //成功，返回查询用户信息
+				if (docs) {
+					callback(err, docs);   //成功，返回查询用户信息
 				} else {
 					callback(err, null);   //失败，返回null
 				}
@@ -102,7 +102,7 @@ User.get = function (name, callback) {     //读取用户信息
 };
 
 
-User.control = function (name, callback) {            //提供用户信息修改接口
+User.control = function (name, user, callback) {            //提供用户信息修改接口
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -113,14 +113,13 @@ User.control = function (name, callback) {            //提供用户信息修改
 				return callback(err);
 			}
 			//更新用户信息
-			collection.update({"name": name}, user, function (err) {
+			collection.update({"name": name}, {$set: user}, function (err) {
 				mongodb.close();
 				if (err) {
 					return callback(err);
 				}
 				callback(null);
 			});   
-			
 		});
 	});
 };
