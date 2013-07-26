@@ -32,9 +32,9 @@
 <a name="blog-os" class="anchor" href="#blog-os"><span class="octicon octicon-link"></span></a>Blog-OS</h1>
 
 <h4>
-<a name="%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E" class="anchor" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E"><span class="octicon octicon-link"></span></a>这是一个基于</h4>
+<a name="%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA" class="anchor" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA"><span class="octicon octicon-link"></span></a>这是一个</h4>
 
-<p>Node.js平台 + 
+<p>基于Node.js平台 + 
 使用JavaScript编写 + 
 MongoDb数据库的多人博客系统/社交网络</p>
 
@@ -66,12 +66,16 @@ MongoDb数据库的多人博客系统/社交网络</p>
 
 <p>2013.7.4 修正文章修改时原始标题和标签内容溢出容器</p>
 
-<p>2013.7.25 修正Root功能中的一些错误、添加监控、新增应用体的数据模型AppInfo、修正数据库复数链接导致应用暂停问题、应用数据库初始化、文章检索特殊符号正则过滤不严格问题</p>
+<p>2013.7.25 修正Root功能中的一些错误、添加监控、新增应用体的数据模型AppInfo、修正数据库复数链接导致应用暂停问题、应用数据库初始化、文章检索特殊符号正则过滤不严格问题、控制分页的回调函数逻辑错误问题</p>
+
+<p>2013.7.26 添加个人信息浏览及设置功能，修正User模型中一个查询数据库的错误用法find</p>
 
 <h4>
 <a name="bugshistory" class="anchor" href="#bugshistory"><span class="octicon octicon-link"></span></a>bugs（history）</h4>
 
-<p>2013.7.25 Root进行网站流量监控、数据监控时发生应用崩溃，appinfo数据模型无法正常工作，Router中部分路由函数逻辑出错，post数据模型中的几个函数由于未考虑扩展而导致出错，正则表达式检索文章是过滤不严出错。已解决</p>
+<p>2013.7.26 User模型中的查询语法使用出错，导致用户/管理员页面获取查询信息为undefined。 已解决</p>
+
+<p>2013.7.25 Root进行网站流量监控、数据监控时发生应用崩溃，appinfo数据模型无法正常工作，Router中部分路由函数逻辑出错，post数据模型中的几个函数由于未考虑扩展而导致出错，正则表达式检索文章是过滤不严出错，分页出错。已解决</p>
 
 <p>2013.7.24 数据库链接被多次开启导致应用暂停。已解决，方案：将主应用中的检测数据库部分删除。</p>
 
@@ -103,7 +107,7 @@ MongoDb数据库的多人博客系统/社交网络</p>
 <li>添加头像:头像引自gravatar，可到gravatar上选定头像然后将邮箱填写正确 </li>
 <li>pv统计</li>
 <li>管理自己发布的文章（搜索、删除、修改）</li>
-<li>接收系统/用户消息(使用nodemailer-stmp接发邮件) $</li>
+<li>接收系统/用户消息 $</li>
 </ul>
 </li>
 <li>标签</li>
@@ -112,7 +116,7 @@ MongoDb数据库的多人博客系统/社交网络</p>
 <li>归档</li>
 <li>markdown留言</li>
 <li>markdown评论</li>
-<li>可视化文本编辑器(textarea的Tab代码缩进支持) $</li>
+<li>可视化文本编辑器 $</li>
 <li>文章检索</li>
 <li>注册：在注册时最好填写关联gravatar的邮箱以确保头像的正确引用！</li>
 <li>系统管理员（数据库可视化操作 + 网站监控）
