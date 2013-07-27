@@ -1,14 +1,19 @@
 <nav>
 	<span><a title="控制中心" href="/admin">RootDash</a></span>
-	<span><a title="" href=""></a></span>
-	<span><a title="" href="/archive">**</a></span>
-	<span><a title="" href="">**</a></span>
-	<span><a title="" href="">**</a></span>
-	<span><a title="" href="/adminlogout">注销</a></span>
+	<span><a title="应用信息" href="/admin/appinfo">应用状态</a></span>
+	<span><a title="用户管理" href="/admin/userctrl">用户管理</a></span>
+	<span><a title="文章管理" href="/admin/postctrl">发布管理</a></span>
+	<span><a title="消息管理" href="/admin/msgbox">消息中心</a></span>
 	<span>
-	<form action="/search" method="GET">
-		<input type="text" name="keyword" placeholder="SEARCH" class="search" />
+	<form action="/admin/queryuser" method="GET">
+		<input type="text" name="username" placeholder="用户查询" class="search" />
 	</form>	
 	</span>
+	<span>
+	<form action="/admin/querypost" method="GET">
+		<input type="text" name="postname" placeholder="文章查询" class="search" />
+	</form>	
+	</span>
+	<span><a title="注销" href="/adminlogout">退出后台</a></span>
 </nav>
 

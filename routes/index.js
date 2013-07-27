@@ -43,7 +43,11 @@ var checkLogin = require('./ctrlfunction/checkLogin.js'),
     adDelPost = require('./addelpost.js'),
     queryPost = require('./querypost.js'),
     updatePost = require('./updatepost.js'),
-    updateUser = require('./updateuser.js');
+    updateUser = require('./updateuser.js'),
+    
+    userCTRL = require('./userctrl.js'),
+    postCTRL = require('./postctrl.js'),
+    getMsg = require('./getmsg.js');
 
 module.exports = function(app) {
 
@@ -72,6 +76,15 @@ module.exports = function(app) {
 	
 	app.post('/admin/clsdb', checkAdLogin);
 	app.post('/admin/clsdb', clearDataBase);
+	
+	app.get('/admin/userctrl', checkAdLogin);
+	app.get('/admin/userctrl', userCTRL);
+	
+	app.get('/admin/postctrl', checkAdLogin);
+	app.get('/admin/postctrl', postCTRL);
+	
+	app.get('/admin/msgbox', checkAdLogin);
+	app.get('/admin/msgbox', getMsg);
 	
 	app.get('/admin/queryuser', checkAdLogin);
 	app.get('/admin/queryuser', queryUser);
