@@ -134,18 +134,18 @@ module.exports = function(app) {
 	
 	app.get('/u/:name', userpage);
 	
-	app.get('/u/:name/:day/:title', showArticle);
+	app.get('/u/:name/:day/:postmark', showArticle);  
 	
-	app.post('/u/:name/:day/:title', checkLogin);
-	app.post('/u/:name/:day/:title', Commit);
+	app.post('/u/:name/:day/:postmark', checkLogin);   
+	app.post('/u/:name/:day/:postmark', Commit);
 
-	app.get('/u/:name/:day/:title/rewrite', checkLogin);
-	app.get('/u/:name/:day/:title/rewrite', rewritepage);
-	app.post('/u/:name/:day/:title/rewrite', checkLogin);
-	app.post('/u/:name/:day/:title/rewrite', postRewrite);
+	app.get('/u/:name/:day/:postmark/rewrite', checkLogin);
+	app.get('/u/:name/:day/:postmark/rewrite', rewritepage);
+	app.post('/u/:name/:day/:postmark/rewrite', checkLogin);
+	app.post('/u/:name/:day/:postmark/rewrite', postRewrite);
 	
-	app.get('/u/:name/:day/:title/delete', checkLogin);
-	app.get('/u/:name/:day/:title/delete', deletePost);
+	app.get('/u/:name/:day/:postmark/delete', checkLogin);  
+	app.get('/u/:name/:day/:postmark/delete', deletePost);
 	
 	app.get('/u/:name/archive', showArchive);
 	

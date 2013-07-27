@@ -2,10 +2,10 @@
 
 var mongodb = require('./db');
 
-function Comment(name, day, title, comment) {
+function Comment(name, day, postmark, comment) {
 	this.name = name;
 	this.day = day;
-	this.title = title;
+	this.postmark = postmark;
 	this.comment = comment;
 }
 
@@ -14,7 +14,7 @@ module.exports = Comment;
 Comment.prototype.save = function (callback) {
 	var name = this.name,
 		day = this.day,
-		title = this.title,
+		postmark = this.postmark,
 		comment = this.comment;
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -28,7 +28,7 @@ Comment.prototype.save = function (callback) {
 			collection.findAndModify({
 				"name": name,
 				"time.day": day,
-				"title": title
+				"postmark": postmark
 				}, 
 				[['time', -1]],
 				{$push: {"comments": comment}},

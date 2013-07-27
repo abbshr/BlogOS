@@ -14,7 +14,7 @@
 				<li><h3><%= post.time.year %></h3></li>
 			<% } %>
 			<% wholeyear = post.time.year %>
-			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>"><%= post.title %></a></li>
 		<% }) %>
 		</ul>
 		<%- include foot %>

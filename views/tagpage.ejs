@@ -14,7 +14,7 @@
 		<% } %>
 		<ul class="archive">
 		<% posts.forEach(function (post, index) { %>
-			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+			<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>"><%= post.title %></a></li>
 			
 		<% }) %>
 		</ul>

@@ -9,10 +9,12 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	
 module.exports = function (req, res) {         //用户提交修改信息
 	if (req.session.admin || (req.session.user && req.session.user.name === req.params.name)) {
-		var user = {};
+		var user = {},
+			regexp = /,|，/;
 		for (var i in req.body) {
 			user[i] = req.body[i];
 		}
+		user['tags'] = String.prototype.split.call(user['tags'], regexp, 10);
 		User.control(req.params.name, user, function (err) {
 			if (err) {
 				req.flash('error', err);

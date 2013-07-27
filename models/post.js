@@ -25,6 +25,8 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 		minute: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
 	};
 	
+	//每个用户每篇文章的唯一有效标记
+	var postmark = (date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds());
 	//要存入数据库的文章及信息
 	var post = {
 		name: this.name,
@@ -34,7 +36,8 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 		tags: this.tags,
 		post: this.post,
 		comments: [],
-		pv: 0
+		pv: 0,
+		postmark: postmark
 	};
 	
 	//打开数据库
@@ -105,7 +108,7 @@ Post.getFifteen = function (name, pagenum, callback) {    //一次读取15篇文
 	});
 };
 
-Post.getOne = function (flag, lookname, name, day, title, callback) {   //获取一篇文章,参数为false获取原版内容，为true时获取markdown转译内容
+Post.getOne = function (flag, lookname, name, day, postmark, callback) {   //获取一篇文章,参数为false获取原版内容，为true时获取markdown转译内容
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -126,7 +129,7 @@ Post.getOne = function (flag, lookname, name, day, title, callback) {   //获取
 			collection.findAndModify({   //增加pv
 				"name": name,
 				"time.day": day,
-				"title": title 
+				"postmark": postmark 
 			}, 
 			[["time", -1]],
 			{$inc: query}, 

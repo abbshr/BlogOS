@@ -12,7 +12,7 @@ module.exports = function (req, res) {
 	if (req.session.user.name === req.params.name || req.session.admin) {
 		var post = {};
 		post.name = req.params.name;
-		post.title = req.params.title; 
+		post.postmark = req.params.postmark; 
 		post["time.day"] = req.params.day;
 		Post.delete(post, function (err) {
 			if (err) {
@@ -24,6 +24,6 @@ module.exports = function (req, res) {
 		});	
 	} else {
 		req.flash('error', "你无权删除这篇文章~");
-		res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+		res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.postmark);
 	}
 };

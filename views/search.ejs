@@ -16,7 +16,7 @@
 						<li><h3><%= post.name %></h3></li>
 						<% lastname = post.name %>
 					<% } %>
-					<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+					<li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>"><%= post.title %></a></li>
 				<% }) %>
 			</ul>
 		<% } else { %>

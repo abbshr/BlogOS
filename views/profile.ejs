@@ -11,6 +11,9 @@
 			<%- include usernavbar %>
 		<% } %>
 		<%- include flashinfo %>
+		<% if (typeof currentuser.tags !== 'string') { %>
+			<% currentuser.tags = currentuser.tags.join(','); %>
+		<% } %>
 		<% if (locals.admin || (locals.user && locals.user.name === currentuser.name)) { %>
 		<label>Id（用户唯一标识，不可更改）：</label><input type="text" readonly value='<%= currentuser.name %>'></input><br>
 		<form method="post">

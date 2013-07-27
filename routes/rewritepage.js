@@ -10,12 +10,12 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 module.exports = function (req, res) {   //获取修改一篇文章的页面
 		if (req.session.user.name !== req.params.name && !req.session.admin) {
 			req.flash('error', "……zzz");
-			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+			res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.postmark);
 		}
-		Post.getOne(false, req.session.user.name, req.params.name, req.params.day, req.params.title, function (err, post) {
+		Post.getOne(false, req.session.user.name, req.params.name, req.params.day, req.params.postmark, function (err, post) {
 			if (err) {
 				req.flash('error', err);
-				res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+				res.redirect('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.postmark);
 			}
 			post.tags = post.tags.join(',');
 			res.render('post', {

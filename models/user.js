@@ -24,7 +24,7 @@ User.prototype.save = function (callback) {    //存储用户信息
 		college: '',
 		sex: '',
 		website: '',
-		tags: ['']
+		tags: []
 	};
 	
 	//打开数据库

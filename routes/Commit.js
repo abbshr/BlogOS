@@ -19,7 +19,7 @@ module.exports = function (req, res) {   //提交评论
 				"time": time,
 				"content": req.body.content, 
 			};
-		var newComment = new Comment(req.params.name, req.params.day, req.params.title, comment);
+		var newComment = new Comment(req.params.name, req.params.day, req.params.postmark, comment);
 		newComment.save(function (err) {
 			if (err) {
 				req.flash('error', err);
