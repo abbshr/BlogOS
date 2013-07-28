@@ -1,7 +1,12 @@
-var crypto = require('crypto'),   //生成散列值来加密密码
-	Admin = require('../models/admin.js'),
-	checkSpace = require('./ctrlfunction/checkSpace.js'),
-	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
-	getRealTags = require('./ctrlfunction/getRealTags.js');
+var Admin = require('../models/admin.js');
 	
-module.exports = function (req, res) {};
+module.exports = function (req, res) {
+	Admin.deleteUser(req.query.username, function (err) {
+		if (err) {
+			req.flash('error', '删除操作失败~:(');
+		} else {
+			req.flash('success', '操作成功完成!');
+		}
+		res.redirect('/admin');
+	});
+};

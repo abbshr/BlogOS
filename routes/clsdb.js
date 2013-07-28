@@ -1,7 +1,13 @@
-var crypto = require('crypto'),   //生成散列值来加密密码
-	Admin = require('../models/admin.js'),
-	checkSpace = require('./ctrlfunction/checkSpace.js'),
-	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
-	getRealTags = require('./ctrlfunction/getRealTags.js');
+var Admin = require('../models/admin.js');
 	
-module.exports = function (req, res) {};
+module.exports = function (req, res) {
+	Admin.clearDataBase(function (err) {
+		if (err) {
+			req.flash('error', err);
+			console.log(err);
+		} else {
+			console.log('**操作提示：在', Date(), '：*Admin清空数据库！*');
+		}
+		res.redirect('/admin');
+	});
+};

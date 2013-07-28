@@ -72,7 +72,7 @@ User.auth = function (name, callback) {
 	});
 };
 
-User.get = function (name, callback) {     //读取用户信息
+User.get = function (flag ,name, callback) {     //读取用户信息(flag标记用来检测是否精确查询，false为精确查询)
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -85,7 +85,20 @@ User.get = function (name, callback) {     //读取用户信息
 				return callback(err);
 			}
 			var query = {};
-			if (name) {
+			var pattern = new RegExp("^.*" + name + ".*$", "i");
+			if (name && flag) {
+				query = {'$or': 
+					[{'name': pattern},
+					{'tags': pattern},
+					{'email': pattern},
+					{'realname': pattern},
+					{'tel': pattern},
+					{'qq': pattern},
+					{'address': pattern},
+					{'college': pattern}
+					]
+				};
+			} else if (name) {
 				query.name = name;
 			}
 			//查找用户名name，值为name的数据块
