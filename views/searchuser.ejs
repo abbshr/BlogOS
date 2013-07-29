@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<%- include head %>
+	</head>
+	<body>
+		<%- include title %>
+		<%- include adminnavbar %>
+		<%- include flashinfo %>
+		
+		<% if (users.length) { %>
+			<ul class="archive">
+			<% users.forEach(function (user, index) { %>
+				<li><h3><a href="/profile/<%= user.name %>"><%= user.name %></a> | <a href="/admin/deluser/<%= user.name %>">*删除该用户</a></h3></li>
+			<% }) %>
+			</ul>
+		<% } else { %>
+			<p>没找到相关用户 :(</p>
+		<% } %>
+		<%- include foot %>
+		<%- include script %>
+	</body>
+</html>

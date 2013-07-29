@@ -1,7 +1,7 @@
 var Admin = require('../models/admin.js');
 	
 module.exports = function (req, res) {
-	Admin.deleteUser(req.query.username, function (err) {
+	Admin.deleteUser(req.params.name, function (err) {
 		if (err) {
 			req.flash('error', '删除操作失败~:(');
 		} else {

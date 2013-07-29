@@ -17,6 +17,10 @@ module.exports = function (req, res) {
 				req.flash('error', err);
 				return res.redirect('/');
 			}
+			if (!post) {
+				req.flash('error', '未找到:(');
+				return res.redirect('/');
+			}
 			res.render('article', {
 				title: post.title,
 				currentuser: {
@@ -24,6 +28,7 @@ module.exports = function (req, res) {
 				},
 				post: post,
 				user: req.session.user,
+				admin: req.session.admin,
 				success: req.flash('success').toString(),
 				error: req.flash('error').toString()
 			});

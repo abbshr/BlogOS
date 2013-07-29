@@ -18,7 +18,7 @@
 			<% }) %>
 		<% } %>
 		</label>
-		<% if (locals.user && locals.user.name === post.name) { %> | 
+		<% if (locals.admin || (locals.user && locals.user.name === post.name)) { %> | 
 		<label><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>/rewrite">修改文章</a></label> |
 		<label><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>/delete">删除这篇</a></label>
 		<% } %>

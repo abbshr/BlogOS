@@ -21,7 +21,7 @@ module.exports = function (req, res) {         //用户提交修改信息
 			} else {
 				req.flash('success', '修改成功:)');
 			}
-			res.redirect('/profile/' + req.session.user.name);
+			res.redirect('/profile/' + req.params.name);
 		});
 	} else {
 		req.flash('error', '你目前无权操作！~');

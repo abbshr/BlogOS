@@ -1,7 +1,19 @@
-var crypto = require('crypto'),   //生成散列值来加密密码
-	Admin = require('../models/admin.js'),
-	checkSpace = require('./ctrlfunction/checkSpace.js'),
-	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
-	getRealTags = require('./ctrlfunction/getRealTags.js');
+var Admin = require('../models/admin.js'),
+	checkRegExpChar = require('./ctrlfunction/checkRegExpChar.js');
 	
-module.exports = function (req, res) {};
+module.exports = function (req, res) {
+	username = checkRegExpChar(req.query.username);
+	Admin.queryUser(true, username, function (err, users) {
+		if (err) {
+			req.flash('error', err);
+			return res.redirect('/admin');
+		}
+		res.render('searchuser', {
+			title: '搜索结果',
+			users: users,
+			admin: req.session.admin,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString()
+		});
+	});
+};

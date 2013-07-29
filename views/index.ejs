@@ -5,7 +5,11 @@
 	</head>
 	<body>
 		<%- include title %>
-		<%- include navbar %>
+		<% if (locals.admin) { %>
+			<%- include adminnavbar %>
+		<% } else { %>
+			<%- include navbar %>
+		<% } %>
 		<%- include flashinfo %>
 		<% posts.forEach(function (post, index) { %>
 			<p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.postmark %>"><%= post.title %></a></h2></p>

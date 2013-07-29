@@ -18,6 +18,10 @@ module.exports = function (req, res) {
 					req.flash('error', err);
 					res.redirect('/');
 				}
+				if (!posts) {
+					req.flash('error', '未找到:(');
+					return res.redirect('/');
+				}
 				res.render('archive', {
 					title: user.name,
 					currentuser: {

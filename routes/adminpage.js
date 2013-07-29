@@ -8,7 +8,7 @@ module.exports = function (req, res) {
 		}
 		res.render('adminpage', {
 			title: 'BlogOS ControlPanle 『Beta』',
-			appInfo: appinfo,
+			appInfo: appinfo[0],
 			admin: req.session.admin,
 			success: req.flash('success').toString(),
 			error: req.flash('error').toString()

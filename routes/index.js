@@ -3,7 +3,9 @@
 var checkLogin = require('./ctrlfunction/checkLogin.js'),
     checkNotLogin = require('./ctrlfunction/checkNotLogin.js'),
     checkAdLogin = require('./ctrlfunction/checkAdLogin.js'),
-    checkAdNotLogin = require('./ctrlfunction/checkAdNotLogin.js');
+    checkAdNotLogin = require('./ctrlfunction/checkAdNotLogin.js'),
+    checkAllLogin = require('./ctrlfunction/checkAllLogin.js'),
+    checkAllNotLogin = require('./ctrlfunction/checkAllNotLogin.js');
      
     //引入路由控制函数
     dash = require('./dash.js'),
@@ -71,8 +73,8 @@ module.exports = function(app) {
 	app.get('/admin/appinfo', checkAdLogin);
 	app.get('/admin/appinfo', getAppInfo);
 	
-	app.post('/admin/refinfo', checkAdLogin);
-	app.post('/admin/refinfo', refreshInfo);
+	app.get('/admin/refinfo', checkAdLogin);
+	app.get('/admin/refinfo', refreshInfo);
 	
 	app.post('/admin/clsdb', checkAdLogin);
 	app.post('/admin/clsdb', clearDataBase);
@@ -89,15 +91,16 @@ module.exports = function(app) {
 	app.get('/admin/queryuser', checkAdLogin);
 	app.get('/admin/queryuser', queryUser);
 	
-	app.post('/admin/deluser', checkAdLogin);
-	app.post('/admin/deluser', deleteUser);
+	app.get('/admin/deluser/:name', checkAdLogin);
+	app.get('/admin/deluser/:name', deleteUser);
 	
-	app.post('/admin/delpost', checkAdLogin);
-	app.post('/admin/delpost', adDelPost);
+	//app.get('/admin/delpost', checkAdLogin);
+	//app.get('/admin/delpost', adDelPost);
 	
 	app.get('/admin/querypost', checkAdLogin);
 	app.get('/admin/querypost', queryPost);
 	
+	/*
 	app.get('/admin/updatepost', checkAdLogin);
 	app.get('/admin/updatepost', rewritepage);
 	app.post('/admin/updatepost', checkAdLogin);
@@ -107,6 +110,7 @@ module.exports = function(app) {
 	app.get('/admin/updateuser', controlpage);
 	app.post('/admin/updateuser', checkAdLogin);
 	app.post('/admin/updateuser', updateUser);
+	*/
 
 	//普通用户操作
 	
@@ -139,12 +143,12 @@ module.exports = function(app) {
 	app.post('/u/:name/:day/:postmark', checkLogin);   
 	app.post('/u/:name/:day/:postmark', Commit);
 
-	app.get('/u/:name/:day/:postmark/rewrite', checkLogin);
+	app.get('/u/:name/:day/:postmark/rewrite', checkAllLogin);
 	app.get('/u/:name/:day/:postmark/rewrite', rewritepage);
-	app.post('/u/:name/:day/:postmark/rewrite', checkLogin);
+	app.post('/u/:name/:day/:postmark/rewrite', checkAllLogin);
 	app.post('/u/:name/:day/:postmark/rewrite', postRewrite);
 	
-	app.get('/u/:name/:day/:postmark/delete', checkLogin);  
+	app.get('/u/:name/:day/:postmark/delete', checkAllLogin);  
 	app.get('/u/:name/:day/:postmark/delete', deletePost);
 	
 	app.get('/u/:name/archive', showArchive);

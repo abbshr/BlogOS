@@ -17,6 +17,10 @@ module.exports = function (req, res) {      //个人中心
 					return res.redirect('/u/' + req.params.name);
 				}
 			}
+			if (!user) {
+				req.flash('error', '未找到:(');
+				return res.redirect('/');
+			}
 			var tit = 'ta的档案';
 			if (req.session.admin || (req.session.user && req.session.user.name === req.params.name)) {
 				tit = '帐户设置';

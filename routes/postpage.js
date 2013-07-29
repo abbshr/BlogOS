@@ -11,6 +11,7 @@ module.exports = function (req, res) {
 	res.render('post', {
 		title: '发布',
 		user: req.session.user,
+		admin: req.session.admin,
 		post: null,
 		success: req.flash('success').toString(),
 		error: req.flash('error').toString()

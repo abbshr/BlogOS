@@ -72,7 +72,14 @@ Admin.queryUser = User.get;      //指定用户名或null分别按用户名查�
 
 Admin.updateUser = User.control;
 
-Admin.deleteUser = User.delete;    //按条件给定用户名或null删除指定或全部
+Admin.deleteUser = function (name, callback) {  //按条件给定用户名或null删除指定或全部
+	User.delete(name, function (err) {
+		if (err) {
+			callback(err);
+		}
+		Post.delete({name: name}, callback);
+	});    
+};
 
 Admin.deletePost = Post.delete;            //按条件给定文章或null删除指定或全部
 

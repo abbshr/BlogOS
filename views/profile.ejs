@@ -27,7 +27,11 @@
 			<label>网站：</label><input type="text" name="website" value='<%= currentuser.website %>'></input><br>
 			<label>性别：</label><input type="text" name="sex" value='<%= currentuser.sex %>'></input><br>
 			<input type="submit" value="确认修改" />
-			<a href='/u/<%= currentuser.name %>'>取消</a>
+			<% var returns = 'u/' + currentuser.name; %>
+			<% if (locals.admin) { %>
+				<% returns = 'admin' %>
+			<% } %>
+			<a href='/<%= returns %>'>取消</a>
 		</form>
 		<% } else { %>
 			<label>Id：<%= currentuser.name %></label><br>

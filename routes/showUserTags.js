@@ -8,7 +8,16 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {
-		Post.getTags(req.params.name, function (err, tags) {
+	User.auth(req.params.name, function (err, user) {
+		if (err) {
+			req.flash('error', err);
+			return res.redirect('/');
+		}
+		if (!user) {
+			req.flash('error', '查无此人！~');
+			return res.redirect('/');
+		}
+		Post.getTags(user.name, function (err, tags) {
 			if (err) {
 				req.flash('error', err);
 				return res.redirect('/u/' + req.params.name);
@@ -21,4 +30,5 @@ module.exports = function (req, res) {
 				error: req.flash('error').toString()
 			});
 		});
+	});
 };

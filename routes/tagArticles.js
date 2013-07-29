@@ -13,6 +13,10 @@ module.exports = function (req, res) {
 				req.flash('error', err);
 				return res.redirect('/');
 			}
+			if (!posts) {
+				req.flash('error', '未找到:(');
+				return res.redirect('/');
+			}
 			res.render('tagpage', {
 				title: '相关话题：' + req.params.tagname,
 				posts: posts,

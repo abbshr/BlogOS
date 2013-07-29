@@ -16,7 +16,7 @@ AppInfo.getInfo = function (callback) {
 				mongodb.close();
 				return callback(err);
 			}
-			collection.find({} ,function (err, docs) {
+			collection.find({}).toArray(function (err, docs) {
 				mongodb.close();
 				if (err) {
 					return callback(err);
@@ -40,44 +40,43 @@ AppInfo.refreshInfo = function (callback) {
 			}
 			collection.count(function (err, count) {
 				appInfo.adminsnumber = count;
+				
+				db.collection('users', function (err, collection) {
+					if (err) {
+						mongodb.close();
+						return callback(err);
+					}
+					collection.count(function (err, count) {
+						appInfo.usersnumber = count;
+						
+						db.collection('posts', function (err, collection) {
+							if (err) {
+								mongodb.close();
+								return callback(err);
+							}
+							collection.count(function (err, count) {
+								appInfo.postsnumber = count;
+								
+								db.collection('app', function (err, collection) {
+									if (err) {
+										mongodb.close();
+										return callback(err);
+									}
+									collection.update({}, {$set: appInfo}, true, function (err) {
+										mongodb.close();
+										if (err) {
+											return callback(err);
+										}
+										callback(null);
+									});
+								});
+							});
+						});
+					});
+				});
 			});
-		});	
-		
-		db.collection('users', function (err, collection) {
-			if (err) {
-				mongodb.close();
-				return callback(err);
-			}
-			collection.count(function (err, count) {
-				appInfo.usersnumber = count;
-			});	
 		});
-		
-		db.collection('posts', function (err, collection) {
-			if (err) {
-				mongodb.close();
-				return callback(err);
-			}
-			collection.count(function (err, count) {
-				appInfo.postsnumber = count;
-			});
-		});
-		
-		db.collection('app', function (err, collection) {
-			if (err) {
-				mongodb.close();
-				return callback(err);
-			}
-			collection.update({}, {$set: appInfo}, true, {upsert: true, w: 1}, function (err) {
-				mongodb.close();
-				if (err) {
-					return callback(err);
-				}
-				callback(null, appInfo);
-			});
-		});
-	});
-	
+	});	
 };
 
 AppInfo.incPv = function (callback) {
@@ -196,5 +195,3 @@ AppInfo.deleteAppInfo = function (callback) {
 		});
 	});
 };
-
-

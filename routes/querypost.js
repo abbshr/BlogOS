@@ -12,7 +12,7 @@ module.exports = function (req, res) {
 		res.render('search', {
 			title: "搜索结果",
 			posts: posts,
-			user: req.session.admin,
+			admin: req.session.admin,
 			success: req.flash('success').toString(),
 			error: req.flash('error').toString()
 		});

@@ -18,6 +18,7 @@ module.exports = function (req, res) {
 		res.render('index', {
 			title: 'DashBoard',
 			user: req.session.user,
+			admin: req.session.admin,
 			posts: posts,
 			pagenum: pagenum,
 			tpages: tpages,

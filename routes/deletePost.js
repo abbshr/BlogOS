@@ -9,7 +9,7 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 
 
 module.exports = function (req, res) {
-	if (req.session.user.name === req.params.name || req.session.admin) {
+	if ((req.session.user && req.session.user.name === req.params.name) || req.session.admin) {
 		var post = {};
 		post.name = req.params.name;
 		post.postmark = req.params.postmark; 
@@ -20,7 +20,7 @@ module.exports = function (req, res) {
 			} else {
 				req.flash('success', "删除成功~");
 			}
-			res.redirect('/u/' + req.session.user.name);
+			res.redirect('/u/' + req.params.name);
 		});	
 	} else {
 		req.flash('error', "你无权删除这篇文章~");
