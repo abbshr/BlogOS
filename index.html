@@ -31,13 +31,15 @@
         <h4>
 <a name="%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA" class="anchor" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA"><span class="octicon octicon-link"></span></a>这是一个</h4>
 
-<p>基于Node.js平台 + 
-使用JavaScript编写 + 
+<p>使用Node.js平台 + 
+JavaScript编写 + 
 MongoDb数据库的多人博客系统/社交网络</p>
 
 <hr><h4>
-<a name="%E7%9B%AE%E5%89%8D%E9%A1%B9%E7%9B%AE%E5%B7%B2%E5%9C%A8appfog%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8A%E6%89%98%E7%AE%A1%E5%9C%B0%E5%9D%80httpblogosap01awsafcm" class="anchor" href="#%E7%9B%AE%E5%89%8D%E9%A1%B9%E7%9B%AE%E5%B7%B2%E5%9C%A8appfog%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8A%E6%89%98%E7%AE%A1%E5%9C%B0%E5%9D%80httpblogosap01awsafcm"><span class="octicon octicon-link"></span></a>目前项目已在appfog云服务上托管，地址：<a href="http://blogos.ap01.aws.af.cm/">http://blogos.ap01.aws.af.cm/</a>
+<a name="%E7%9B%AE%E5%89%8D%E9%A1%B9%E7%9B%AE%E7%9A%84demo%E5%B7%B2%E5%9C%A8appfog%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8A%E6%89%98%E7%AE%A1%E5%9C%B0%E5%9D%80httpblogosap01awsafcm" class="anchor" href="#%E7%9B%AE%E5%89%8D%E9%A1%B9%E7%9B%AE%E7%9A%84demo%E5%B7%B2%E5%9C%A8appfog%E4%BA%91%E6%9C%8D%E5%8A%A1%E4%B8%8A%E6%89%98%E7%AE%A1%E5%9C%B0%E5%9D%80httpblogosap01awsafcm"><span class="octicon octicon-link"></span></a>目前项目的Demo已在appfog云服务上托管，地址：<a href="http://blogos.ap01.aws.af.cm/">http://blogos.ap01.aws.af.cm/</a>
 </h4>
+
+<p>欢迎提交bugs~ at： <a href="mailto:abbshrsoufii@gmail.com">abbshrsoufii@gmail.com</a></p>
 
 <hr><h4>
 <a name="bugs-fixed--update" class="anchor" href="#bugs-fixed--update"><span class="octicon octicon-link"></span></a>bugs fixed &amp;&amp; update</h4>
@@ -69,8 +71,12 @@ MongoDb数据库的多人博客系统/社交网络</p>
 
 <p>2013.7.27 重新设计单篇po的链接构成，防止再次出现非法字符</p>
 
+<p>2013.7.29 全面检查，修正一些隐蔽的错误以及添加非法URL过滤，完成后台功能与后台Bugs修复，对大部分页面的session检测逻辑进行修改</p>
+
 <h4>
 <a name="bugshistory" class="anchor" href="#bugshistory"><span class="octicon octicon-link"></span></a>bugs（history）</h4>
+
+<p>2013.7.29 部分非法URL未经过滤，会导致应用崩溃。已解决。</p>
 
 <p>2013.7.27 每篇post的标题中如果包含？，由于链接包含标题，因此会出现？这将导致req.params无法正确辨识链接中的title从而查询出错。方案：对post的链接构成进行重新整合，避免出现非法字符。 ……已解决。</p>
 
@@ -160,7 +166,8 @@ MongoDb数据库的多人博客系统/社交网络</p>
 <li>2013.7.04</li>
 <li>2013.7.25</li>
 <li>2013.7.26</li>
-<li>2013.7.27
+<li>2013.7.27</li>
+<li>2013.7.29
 <hr>
 </li>
 </ul><h4>
