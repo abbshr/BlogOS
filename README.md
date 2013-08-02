@@ -6,7 +6,7 @@
 MongoDb数据库的多人博客系统/社交网络
 <hr>
 
-####目前项目已在appfog云服务上托管，地址：http://blogos.ap01.aws.af.cm/
+####目前项目已在appfog云服务上托管，地址：http://blog-os.tk
 
 <hr>
 
