@@ -22,7 +22,7 @@ Post.prototype.save = function (callback) {  //存储一篇文章以及相关信
 		year: date.getFullYear(),
 		month: date.getFullYear() + '-' + (date.getMonth() + 1),
 		day: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-		minute: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+		minute: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + ':' + (date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds())
 	};
 	
 	//每个用户每篇文章的唯一有效标记
