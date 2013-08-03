@@ -14,7 +14,7 @@ module.exports = function (req, res) {   //提交修改的一篇文章
 		}
 		var newpost = {},
 		    oldpost = {};
-		if (req.body.title == 0) {    //防止空标题
+		if (req.body.title == 0 && !(/0/i).test(req.body.title)) {    //防止空标题
 			req.flash('error', '请填写标题~');
 			return res.redirect('/post');
 		}

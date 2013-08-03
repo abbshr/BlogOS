@@ -9,7 +9,7 @@ var crypto = require('crypto'),   //生成散列值来加密密码
     AppInfo = require('../models/appinfo.js');
 	
 module.exports = function (req, res) {
-		if (req.body.title == 0) {    //防止空标题
+		if (req.body.title == 0 && !(/0/i).test(req.body.title)) {    //防止空标题
 			req.flash('error', '请填写标题~');
 			return res.redirect('/post');
 		}
