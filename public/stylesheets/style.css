@@ -27,11 +27,13 @@ nav a{
 	text-decoration:none;
 	padding:.7em 1em;
 	color:#000000;
+	transition:color 2s linear, background-color 2s linear;
+    -moz-transition:color 2s linear, background-color 2s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 nav a:hover{
 	background-color:#ff0000;
 	color:#f9f9f9;
-	-webkit-transition:color .2s linear;
 }
 article{
 	font-size:16px;
@@ -54,6 +56,9 @@ article a:hover{
 	padding:.5em 1em;
 	color:#ff0000;
 	font-weight:bold;
+	transition:color 2s linear, background-color 2s linear;
+    -moz-transition:color 2s linear, background-color 2s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 .nextpage a{
 	float:right;
@@ -61,6 +66,9 @@ article a:hover{
 	padding:.5em 1em;
 	color:#ff0000;
 	font-weight:bold;
+	transition:color 2s linear, background-color 2s linear;
+    -moz-transition:color 2s linear, background-color 2s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 .lastpage a:hover,.nextpage a:hover{
 	text-decoration:none;
@@ -94,12 +102,14 @@ article a:hover{
 	display:inline-block;
 	padding:0 5px;
 	margin-bottom:8px;
+	transition:color 2s linear, background-color 2s linear;
+    -moz-transition:color 2s linear, background-color 2s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 .tag:hover{
 	text-decoration:none;
 	background-color:#ffffff;
 	color:#000000;
-	-webkit-transition:color .2s linear;
 }
 .search{
 	border:0;
