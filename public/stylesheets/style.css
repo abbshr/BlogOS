@@ -27,8 +27,8 @@ nav a{
 	text-decoration:none;
 	padding:.7em 1em;
 	color:#000000;
-	transition:color 2s linear, background-color 2s linear;
-    -moz-transition:color 2s linear, background-color 2s linear;
+	transition:color 0.3s linear, background-color 0.1s linear;
+    -moz-transition:color 0.3s linear, background-color 0.1s linear;
 	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 nav a:hover{
@@ -56,9 +56,9 @@ article a:hover{
 	padding:.5em 1em;
 	color:#ff0000;
 	font-weight:bold;
-	transition:color 2s linear, background-color 2s linear;
-    -moz-transition:color 2s linear, background-color 2s linear;
-	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
+	transition:color 0.3s linear, background-color 0.3s linear;
+    -moz-transition:color 0.3s linear, background-color 0.3s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.3s linear;
 }
 .nextpage a{
 	float:right;
@@ -66,9 +66,9 @@ article a:hover{
 	padding:.5em 1em;
 	color:#ff0000;
 	font-weight:bold;
-	transition:color 2s linear, background-color 2s linear;
-    -moz-transition:color 2s linear, background-color 2s linear;
-	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
+	transition:color 0.3s linear, background-color 0.3s linear;
+    -moz-transition:color 0.3s linear, background-color 0.3s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.3s linear;
 }
 .lastpage a:hover,.nextpage a:hover{
 	text-decoration:none;
@@ -102,9 +102,9 @@ article a:hover{
 	display:inline-block;
 	padding:0 5px;
 	margin-bottom:8px;
-	transition:color 2s linear, background-color 2s linear;
-    -moz-transition:color 2s linear, background-color 2s linear;
-	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
+	transition:color 0.3s linear, background-color 0.3s linear;
+    -moz-transition:color 0.3s linear, background-color 0.3s linear;
+	-webkit-transition:color 0.3s linear, background-color 0.3s linear;
 }
 .tag:hover{
 	text-decoration:none;
