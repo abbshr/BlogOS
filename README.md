@@ -1,12 +1,12 @@
 #Blog-OS
 
-####这是一个
-基于Node.js平台 + 
-使用JavaScript编写 + 
+####这是一个基于
+Node.js平台 + 
+JavaScript语言 + 
 MongoDb数据库的多人博客系统/社交网络
 <hr>
 
-####目前项目已在appfog云服务上托管，地址：http://blog-os.tk
+####目前项目已部署到appfog云服务上，地址：http://blog-os.tk
 
 <hr>
 
@@ -40,6 +40,8 @@ MongoDb数据库的多人博客系统/社交网络
 2013.7.27 重新设计单篇po的链接构成，防止再次出现非法字符
 
 2013.7.29 全面检查，修正一些隐蔽的错误以及添加非法URL过滤，完成后台功能与后台Bugs修复，对大部分页面的session检测逻辑进行修改
+
+2013.9.2 更新了routes、public/javascripts和views。新增对**标签** 和 **SEARCH**中的特殊字符的支持。
 
 ####bugs（history）
 
@@ -127,6 +129,7 @@ MongoDb数据库的多人博客系统/社交网络
 + 2013.7.26
 + 2013.7.27
 + 2013.7.29
++ 2013.9.02
 <hr>
 
 ####你可以选择Quick Start参照例子自己创建blogos：
