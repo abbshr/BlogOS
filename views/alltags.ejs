@@ -10,8 +10,9 @@
 		<br>
 		<% if (tags) { %>
 			<% tags.forEach(function (tag, index) { %>	
-				<% if (tag) %>	
+				<% if (tag) { %>	
 				<a class="tag" href="/tags/<%= encodeURIComponent(tag) %>"><%= tag %></a>
+				<% } %>
 			<% }) %>
 		<% } %>
 		<%- include foot %>
