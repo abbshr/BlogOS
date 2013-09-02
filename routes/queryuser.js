@@ -2,7 +2,8 @@ var Admin = require('../models/admin.js'),
 	checkRegExpChar = require('./ctrlfunction/checkRegExpChar.js');
 	
 module.exports = function (req, res) {
-	username = checkRegExpChar(req.query.username);
+	var username = unescape(req.query.username);
+	username = checkRegExpChar(username);
 	Admin.queryUser(true, username, function (err, users) {
 		if (err) {
 			req.flash('error', err);

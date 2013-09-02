@@ -22,7 +22,7 @@
 				<label>标签：
 				<% if (post.tags) { %>
 					<% post.tags.forEach(function (tag, index) { %>
-						<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+						<a class="tag" href="/tags/<%= encodeURIComponent(tag) %>"><%= tag %></a>
 					<% }) %>
 				<% } %>
 				</label> | 

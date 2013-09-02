@@ -3,7 +3,8 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	checkRegExpChar = require('./ctrlfunction/checkRegExpChar.js');
 	
 module.exports = function (req, res) {
-	postname = checkRegExpChar(req.query.postname);
+	var postname = unescape(req.query.postname);
+	postname = checkRegExpChar(postname);
 	Admin.queryPost(postname, function (err, posts) {
 		if (err) {
 			req.flash('error', err);

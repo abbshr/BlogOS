@@ -1,5 +1,8 @@
 
-*{padding:0;margin:0;}
+*{
+	padding:0;margin:0;
+	text-decoration:none;
+}
 body{
 	width:600px;
 	margin:2em auto;
@@ -32,7 +35,7 @@ nav a{
 	-webkit-transition:color 0.3s linear, background-color 0.1s linear;
 }
 nav a:hover{
-	background-color:#ff0000;
+	background-color:rgb(255, 122, 47);
 	color:#f9f9f9;
 }
 article{
@@ -72,7 +75,7 @@ article a:hover{
 }
 .lastpage a:hover,.nextpage a:hover{
 	text-decoration:none;
-	background-color:#ff0000;
+	background-color:rgb(255, 122, 47);
 	color:#f9f9f9;
 	-webkit-transition:color .2s linear;
 }
@@ -95,7 +98,7 @@ article a:hover{
 	padding-top:80px;
 }
 .tag{
-	background-color:#ff0000;
+	background-color:rgb(255, 122, 47);
 	border-radius:3px;
 	font-size:14px;
 	color:#ffffff;

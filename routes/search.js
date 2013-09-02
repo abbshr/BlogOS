@@ -8,7 +8,8 @@ var crypto = require('crypto'),   //生成散列值来加密密码
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {    
-	keyword = checkRegExpChar(req.query.keyword);
+	var keyword = unescape(req.query.keyword);  //解码keyword
+	keyword = checkRegExpChar(keyword);  //需要重构checkRegExpChar函数！
 	Post.search(keyword, function (err, posts) {
 		if (err) {
 			req.flash('error', err);

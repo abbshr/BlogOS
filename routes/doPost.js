@@ -19,7 +19,7 @@ module.exports = function (req, res) {
 		    headimg = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48",
 		    regexp = /,|，/,
 		    tags = checkSpace(req.body.tags),   //去除首末空格
-		    tags = checkSpecialChar(tags),      //去除特殊字符
+		    //tags = checkSpecialChar(tags),      //去除特殊字符
 		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
 		    title = checkSpace(req.body.title); //去除首末空格
 		    if (req.body.tags) {

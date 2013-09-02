@@ -9,10 +9,12 @@
 		<%- include flashinfo %>
 		<br>
 		<% if (tags) { %>
-			<% tags.forEach(function (tag, index) { %>		
-				<a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+			<% tags.forEach(function (tag, index) { %>	
+				<% if (tag) %>	
+				<a class="tag" href="/tags/<%= encodeURIComponent(tag) %>"><%= tag %></a>
 			<% }) %>
 		<% } %>
 		<%- include foot %>
+		<%- include script %>
 	</body>
 </html>

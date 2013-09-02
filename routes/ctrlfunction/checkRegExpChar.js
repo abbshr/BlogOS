@@ -1,7 +1,10 @@
-function checkRegExpChar(str) {   //检测并清除正则字符串中的特殊字符，例如：“空格 ^ # % & + - / \ =”
+function checkRegExpChar(str) {   //检测处理正则字符串中的特殊字符
 	if (str) {
-		str = str.replace(/\$|\*|\+|\-|\\|\/|\=|\^|\`|\(|\)|\?|\[|\]|\s/g, '');
-		return str;
+		var normalStr = '';
+		for (var i in str)
+			normalStr += (/\$|\*|\+|\-|\\|\/|\=|\^|\`|\(|\)|\?|\[|\]|\s/g).test(str[i]) ? 
+					 ('\\' + str[i]) : str[i];   //待解决：反斜杠问题
+		return normalStr;
 	} else {
 		return '';
 	}

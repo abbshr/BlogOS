@@ -23,7 +23,7 @@ module.exports = function (req, res) {   //提交修改的一篇文章
 		oldpost['time.day'] = req.params.day;
 		var regexp = /,|，/,
 		    tags = checkSpace(req.body.tags),   //去除首末空格
-		    tags = checkSpecialChar(tags),      //去除特殊字符
+		    //tags = checkSpecialChar(tags),      //去除特殊字符
 		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
 			title = checkSpace(req.body.title); //去除首末空格
 		if (req.body.tags) {

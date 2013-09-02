@@ -9,22 +9,17 @@
 (function () {
 	var BlogOS = {
 		init: function () {
-		window.onload = function () {
+		  window.onload = function () {
 			BlogOS.loopByTag('img', BlogOS.standardImage, function (img) {
-				if (!img.className && img.width > 600) { 
+				if (!img.className && img.width > 600) 
 					return true;
-				}
 				return false;
 			});
-		/*	this.loopByTag('div', this.resetContent, function (content) {
-				var preheight = content.offsetHeight,
-					stdHeight = content.offsetWidth * 0.8;
-				if (preheight > stdHeight) {
-					return true;
-				}
-				return false;
-			});*/
-			};
+			BlogOS.loopByTag('input', BlogOS.bind, function (elem) {
+				if (elem.getAttribute('class') === 'search' || elem.getAttribute('name') ==='tags')
+				return true;
+			});
+		  };
 			delete this.init;
 			return this;
 		},
@@ -75,6 +70,16 @@
 				}
 			}
 			return newele;
+		},
+		
+		bind: function (elem) {
+			elem.onsubmit = function () {
+				BlogOS.encode(elem);
+			};
+		},
+		
+		encode: function (elem) {
+			elem.value = escape(elem.value);
 		}
 	};
 	
