@@ -18,13 +18,14 @@ module.exports = function (req, res) {
 			email_MD5 = md5.update(currentuser.email.toLowerCase()).digest('hex'),
 		    headimg = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48",
 		    regexp = /,|，/,
-		    tags = checkSpace(req.body.tags),   //去除首末空格
+		    //tags = checkSpace(req.body.tags),   //去除首末空格
 		    //tags = checkSpecialChar(tags),      //去除特殊字符
-		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
+		    tags = String.prototype.split.call(req.body.tags, regexp, 5),  //最多五个标签
 		    title = checkSpace(req.body.title); //去除首末空格
-		    if (req.body.tags) {
+		    if (!(req.body.tag == 0 && !(/0/i).test(req.body.tag)))
 		    	tags = getRealTags(tags);  //得到规范标签
-		    }    
+		    else
+		    	tags = [''];    
 		    post = new Post(currentuser.name, headimg, title, tags, req.body.post);
 		    
 		post.save(function (err) {

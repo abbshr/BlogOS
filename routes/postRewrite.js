@@ -22,13 +22,14 @@ module.exports = function (req, res) {   //提交修改的一篇文章
 		oldpost.postmark = req.params.postmark;
 		oldpost['time.day'] = req.params.day;
 		var regexp = /,|，/,
-		    tags = checkSpace(req.body.tags),   //去除首末空格
+		    //tags = checkSpace(req.body.tags),   //去除首末空格
 		    //tags = checkSpecialChar(tags),      //去除特殊字符
-		    tags = String.prototype.split.call(tags, regexp, 5),  //最多五个标签
+		    tags = String.prototype.split.call(req.body.tags, regexp, 5),  //最多五个标签
 			title = checkSpace(req.body.title); //去除首末空格
-		if (req.body.tags) {
+		if (!(req.body.tag == 0 && !(/0/i).test(req.body.tag)))
 		    tags = getRealTags(tags);  //得到规范标签
-		}
+		else
+			tags = [''];
 		newpost.title = title;
 		newpost.tags = tags;
 		newpost.name = req.params.name;
