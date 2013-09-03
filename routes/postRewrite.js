@@ -1,10 +1,8 @@
-var crypto = require('crypto'),   //生成散列值来加密密码
+var crypto = require('crypto'),
 	User = require('../models/user.js'),
 	Post = require('../models/post.js'),
 	Comment = require('../models/comment.js'),
-	checkReg = require('./ctrlfunction/checkReg.js'),
 	checkSpace = require('./ctrlfunction/checkSpace.js'),
-	checkSpecialChar = require('./ctrlfunction/checkSpecialChar.js'),
 	getRealTags = require('./ctrlfunction/getRealTags.js');
 	
 module.exports = function (req, res) {   //提交修改的一篇文章
@@ -21,15 +19,13 @@ module.exports = function (req, res) {   //提交修改的一篇文章
 		oldpost.name = req.params.name;
 		oldpost.postmark = req.params.postmark;
 		oldpost['time.day'] = req.params.day;
-		var regexp = /,|，/,
-		    //tags = checkSpace(req.body.tags),   //去除首末空格
-		    //tags = checkSpecialChar(tags),      //去除特殊字符
-		    tags = String.prototype.split.call(req.body.tags, regexp, 5),  //最多五个标签
-			title = checkSpace(req.body.title); //去除首末空格
-		if (!(req.body.tag == 0 && !(/0/i).test(req.body.tag)))
+		var title = checkSpace(req.body.title), //去除标题首末空格
+			tags = String.prototype.split.call(req.body.tags, /,|，/); 
+		if (!(req.body.tags == 0 && !(/0/i).test(req.body.tags)))
 		    tags = getRealTags(tags);  //得到规范标签
 		else
-			tags = [''];
+		    tags = [''];
+
 		newpost.title = title;
 		newpost.tags = tags;
 		newpost.name = req.params.name;
