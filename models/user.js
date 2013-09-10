@@ -105,7 +105,7 @@ User.get = function (flag ,name, callback) {     //读取用户信息(flag标记
 			collection.find(query).toArray(function (err, docs) {   //**注意find的返回应转化为数组，否则会出错
 				mongodb.close();
 				if (docs) {
-					callback(err, docs);   //成功，返回查询用户信息
+					callback(null, docs);   //成功，返回查询用户信息
 				} else {
 					callback(err, null);   //失败，返回null
 				}
