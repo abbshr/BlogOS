@@ -1,8 +1,8 @@
 
 
-var settings = require('../settings'),
+var dbConfig = require('../config.js').dbConfig,
 	Db = require('mongodb').Db,
 	Connection = require('mongodb').Connection,
 	Server = require('mongodb').Server;
-module.exports = new Db(settings.db, new Server(settings.host, settings.port, {}), {safe:true}); 
-
+    
+module.exports = new Db(dbConfig.db, new Server(dbConfig.host, dbConfig.port, {}), {safe:true}); 

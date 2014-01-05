@@ -8,7 +8,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , MongoStore = require('connect-mongo')(express)
-  , settings = require('./settings')
+  , dbConfig = require('./config.js').dbConfig
   , flash = require('connect-flash');
 
 var app = express();
@@ -24,13 +24,13 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({
-	secret: settings.cookieSecret,
-	key: settings.db,
+	secret: dbConfig.cookieSecret,
+	key: dbConfig.db,
 	cookie: {
 		maxAge: 1000 * 60 * 60 * 24 * 30
 	},
 	store: new MongoStore({
-		db: settings.db
+		db: dbConfig.db
 	})
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,7 +42,7 @@ if ('development' == app.get('env')) {
 }
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('BlogOS服务器已启动，监听端口：' + app.get('port'));
+  console.log('port：' + app.get('port'));
 });
 
 routes(app);
